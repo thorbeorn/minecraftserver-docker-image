@@ -1,0 +1,13 @@
+version: "3"
+services:
+  minecraft:
+    image: minecraftlauncher
+    container_name: kyucube
+    stdin_open: true
+    tty: true
+    command: ["screen", "-S", "minecraft", "java", "-Xmx4G", "-Xms4G", "-jar", "server.jar"]
+    ports:
+      - "${PORTMINECRAFT}:25565"
+      - "${PORTRCON}:25575"
+    volumes:
+      - ./kyucube:/minecraft
