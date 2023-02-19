@@ -91,6 +91,10 @@
     justify-content: center;
     flex-direction: column;
 }
+.pink {
+    border-color: rgb(199, 96, 192);
+    stroke:rgb(199, 96, 192);
+}
 .blue {
     border-color: #4dadd6;
     stroke:#4dadd6;
