@@ -10,20 +10,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://metatags.io" />
-    <meta property="og:title" content="MCServerManager - Page de Connexion" />
-    <meta property="og:description" content="Pour les clients de MCServerManager qui souhaite se connecter à leur panel" />
-    <meta property="og:image" content="https://metatags.io/images/meta-tags.png" />
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://metatags.io" />
-    <meta property="twitter:title" content="MCServerManager - Page de Connexion" />
-    <meta property="twitter:description" content="Pour les clients de MCServerManager qui souhaite se connecter à leur panel" />
-    <meta property="twitter:image" content="https://metatags.io/images/meta-tags.png" />
-
     <!-- Meta Tags Generated with https://metatags.io -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/06dc38b1da.js" crossorigin="anonymous"></script>
