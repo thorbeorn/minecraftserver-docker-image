@@ -45,6 +45,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MCServerManager - Confirmation de compte</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="assets/img/icon_logo.png"/>
     <style>
         @keyframes gradient {
             0% {background-position: 0% 50%;}
