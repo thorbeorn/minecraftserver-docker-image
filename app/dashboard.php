@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <?php
     require_once 'config.php';
-    
-    if (!isset($_SESSION['user'])) {
-        header('Location: index.php');
-        die();
-    }
+
 
     // Récupérer les informations de l'utilisateur connecté depuis la base de données
     $stmt = $pdo->prepare('SELECT pseudo, email FROM _user WHERE pseudo = :pseudo');

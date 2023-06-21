@@ -3,15 +3,14 @@ services:
   php:
     image: php:8.2-apache
     restart: always
-    command: sh /var/www/scripts/setup.sh
     ports:
       - 9000:80
     depends_on:
       - mariadb
     volumes:
       - ./app:/var/www/html
-      - ./scripts:/var/www/scripts
-    
+      - ./scripts:/var/www/html/scripts
+
   mariadb:
     image: mariadb:10.4
     restart: always

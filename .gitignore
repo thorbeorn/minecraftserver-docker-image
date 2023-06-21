@@ -43,7 +43,9 @@ $RECYCLE.BIN/
 *.msix
 *.msm
 *.msp
-
+vendor/
+composer.json
+composer.lock
 # Windows shortcuts
 *.lnk
 
