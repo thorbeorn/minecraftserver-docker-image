@@ -1,17 +1,17 @@
+<!DOCTYPE html>
 <?php
-session_start();
-require_once 'config.php';
+    require_once 'config.php';
+    
+    if (!isset($_SESSION['user'])) {
+        header('Location: index.php');
+        die();
+    }
 
-if (!isset($_SESSION['user'])) {
-    header('Location: index.php');
-    die();
-}
-
-// Récupérer les informations de l'utilisateur connecté depuis la base de données
-$stmt = $pdo->prepare('SELECT * FROM _user WHERE pseudo = :pseudo');
-$stmt->bindParam(':pseudo', $_SESSION['user']);
-$stmt->execute();
-$user = $stmt->fetch();
+    // Récupérer les informations de l'utilisateur connecté depuis la base de données
+    $stmt = $pdo->prepare('SELECT pseudo, email FROM _user WHERE pseudo = :pseudo');
+    $stmt->bindParam(':pseudo', $_SESSION['user']);
+    $stmt->execute();
+    $user = $stmt->fetch();
 
 ?>
 
@@ -43,8 +43,6 @@ $user = $stmt->fetch();
             </div>
 
             <div class="flex items-center">
-
-
                 <div class="flex items-center mr-10">
                     <div>
                         <button type="button" class="flex text-sm bg-gray-800 rounded-full hover:ring-gray-300 hover:ring-4" aria-expanded="false" data-dropdown-toggle="dropdown-user">
@@ -79,6 +77,48 @@ $user = $stmt->fetch();
                 </div>
             </div>
         </header>
-    
+        <aside class="flex flex-col flex-shrink-0 w-64 bg-gray-800 dark:bg-gray-900" id="logo-sidebar">
+            <div class="flex flex-col items-center flex-shrink-0 py-4">
+                <a href="/" class="flex items-center justify-center">
+                    <img src="assets/img/logo.png" class="w-10 h-10" alt="logo" />
+                    <span class="text-xl font-semibold text-white">MCServerManager</span>
+                </a>
+            </div>
+            <nav class="flex-grow pb-4 pr-4 overflow-y-auto">
+                <ul class="mt-6 overflow-y-auto">
+                    <li class="relative px-6 py-3">
+                        <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                        <a href="dashboard.php" class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                            <i class="fa-solid fa-house"></i>
+                            <span class="ml-4">Accueil</span>
+                        </a>
+                    </li>
+                    <li class="relative px-6 py-3">
+                        <a href="server.php" class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                            <i class="fa-solid fa-server"></i>
+                            <span class="ml-4">Serveur</span>
+                        </a>
+                    </li>
+                    <li class="relative px-6 py-3">
+                        <a href="plugin.php" class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                            <i class="fa-solid fa-puzzle-piece"></i>
+                            <span class="ml-4">Plugins</span>
+                        </a>
+                    </li>
+                    <li class="relative px-6 py-3">
+                        <a href="config.php" class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                            <i class="fa-solid fa-cog"></i>
+                            <span class="ml 4">Configuration</span>
+                        </a>
+                    </li>
+                    <li class="relative px-6 py-3">
+                        <a href="user.php" class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                            <i class="fa-solid fa-user"></i>
+                            <span class="ml-4">Utilisateur</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
     </body>
 </html>
