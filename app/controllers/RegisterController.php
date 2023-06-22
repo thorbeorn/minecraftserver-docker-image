@@ -52,7 +52,7 @@ class RegisterController {
                             ));
 
                             GestionEmail::sendMailVerify('Confirmation de compte', $email, $key);
-                            header(RegisterDirectWithSuccess('success'));
+                            header(RegisterDirectWithError('success'));
                             exit();
                         } else {
                             header(RegisterDirectWithError('password'));
@@ -94,22 +94,24 @@ class RegisterController {
 
                 if ($interval->h < 2) {
                     $update = $this->pdo->prepare('UPDATE _user SET account_confirmed = 1 WHERE key_verify = ?');
-                    $ErrorMessage = 'success';
+                    RegistreConfirmationError('success')
+                    exit();
                 } else {
                     // La clé n'est plus valide, envoyez un nouvel e-mail de confirmation
-                    $ErrorMessage = 'expired';
+                    GestionEmail::sendMailVerify('Confirmation de compte', $data['email'], $key);
+                    RegistreConfirmationError('expired')
+                    exit();
                 }
             } else {
                 // La clé n'est pas valide
-                $ErrorMessage = 'invalid';
+                RegistreConfirmationError('invalid')
+                exit();
             }
         } else {
+            // Pas de clé fournie
             header('Location: inscription.php');
             exit();
         }
-
-        // Retourner le message de confirmation et la classe CSS
-        RegistreConfirmationError($ErrorMessage)
     }
 
 

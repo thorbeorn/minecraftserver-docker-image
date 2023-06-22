@@ -8,30 +8,23 @@
             if(isset($_GET['login_err']))
             {
                 $err = htmlspecialchars($_GET['login_err']);
-
-                switch($err)
-                {
-                    case 'password':
-                    ?>
-                        <div class="bg-red-500 text-white p-3 rounded mb-3">
-                            <strong>Erreur</strong> : Mot de passe incorrect
-                        </div>
-                    <?php
-                    break;
-
-                    case 'already':
-                    ?>
-                        <div class="bg-red-500 text-white p-3 rounded mb-3">
-                            <strong>Erreur</strong> : Utilisateur non existant
-                        </div>
-                    <?php
-                    break;
+                $message = htmlspecialchars(urldecode($_GET['message']));
+                if ($err === 'success') {
+        ?>
+            <div class="bg-green-500 text-white p-3 rounded mb-3">
+                <strong>Succès</strong> : <?= $message ?>
+            </div>
+        <?php
+            } else {
+        ?>
+            <div class="bg-red-500 text-white p-3 rounded mb-3">
+                <strong>Erreur</strong> : <?= $message ?>
+            </div>
+        <?php
                 }
             }
         ?> 
-
         <div class="w-full mb-3 relative">
-            
             <label class="block text-gray-800 font-medium">Nom d'utilisateur</label>
             <i class="fas fa-user absolute text-gray-500 left-3 top-11"></i>
             <input class="w-full pl-8 pr-3 py-2 mt-2 border rounded-lg focus:outline-none focus:border-[#496AC8]" type="text" placeholder="Nom d'utilisateur" name='pseudo' required>

@@ -9,7 +9,7 @@ services:
       - mariadb
     volumes:
       - ./app:/var/www/html
-      - ./scripts:/var/www/html/scripts
+      - ./scripts/php:/var/www/html/scripts
 
   mariadb:
     image: mariadb:10.4
@@ -18,8 +18,10 @@ services:
       - 3306:3306
     volumes:
       - ./mariadb-data:/var/lib/mysql
+      - ./scripts/sql:/backup
     environment:
-      MYSQL_ROOT_PASSWORD: qwerty
+      MYSQL_ROOT_PASSWORD: root
+    entrypoint: /bin/bash -c "/docker-entrypoint.sh mysqld && sleep 10 && mysql -u root -proot < /backup/donnees_bdd.sql"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest

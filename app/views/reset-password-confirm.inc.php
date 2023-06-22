@@ -1,86 +1,53 @@
 <?php
     require_once 'config.php';
-    
-    $key = $_GET['key'] ?? '';
-    $key = htmlspecialchars($key);
-
-    if ($key == '') {
-        redirectAndExit('index.php');
-    }
-
     $resetMessage = '';
     $resetClass = '';
-
-    if (passwordsArePostedAndMatch()) {
-        updatePassword($key);
-        setSuccess('Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter.');
-    } else if (!empty($_POST['password']) || !empty($_POST['confirm_password'])) {
-        setError('Les mots de passe ne correspondent pas.');
+    $key = '';
+    if (!empty($_GET['key'])) {
+        $key = htmlspecialchars($_GET['key']);
     }
-
-    validateKey($key);
-
-    function passwordsArePostedAndMatch(): bool {
-        return (!empty($_POST['password']) && !empty($_POST['confirm_password']) && $_POST['password'] == $_POST['confirm_password']);
-    }
-
-    function updatePassword(string $key): void {
-        global $pdo;
-
+    if ($_POST['password'] == $_POST['confirm_password']) {
         $hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $update = $pdo->prepare('UPDATE _user SET password = ? WHERE verify_key_date IS NOT NULL AND verify_key_date >= DATE_SUB(NOW(), INTERVAL 2 HOUR) AND key_verify = ?');
+        $update = $pdo->prepare('UPDATE _user SET password = ? WHERE verify_key = ? AND verify_key_date IS NOT NULL AND verify_key_date >= DATE_SUB(NOW(), INTERVAL 2 HOUR)');
         $update->execute([$hashedPassword, $key]);
-    }
-
-    function validateKey(string $key): void {
-        global $pdo;
-
-        $check = $pdo->prepare('SELECT pseudo, email, password, verify_key_date FROM _user WHERE key_verify = ?');
-        $check->execute([$key]);
-        $data = $check->fetch();
-
-        if ($check->rowCount() == 1) {
-            if (keyIsNotExpired($data['verify_key_date'])) {
-                setSuccess('Votre clé de réinitialisation est valide. Vous pouvez maintenant définir un nouveau mot de passe.');
-            } else {
-                setWarning('Votre clé de réinitialisation est expirée. Un nouvel email a été envoyé.');
-            }
-        } else {
-            setError('La clé de réinitialisation est invalide.');
+    
+        if ($update->rowCount() == 1) {
+            header('Location: index.php?login_err=success');
+            exit();
         }
     }
+    
+    // En cas d'échec de la mise à jour du mot de passe
+    $resetMessage = 'Erreur : La clé de réinitialisation est invalide.';
+    $resetClass = 'bg-red-50 text-red-700';
+    
+    if (!empty($key)) {
+        $check = $pdo->prepare('SELECT pseudo, email, password, verify_key_date FROM _user WHERE key_verify = ?');
+        $check->execute(array($key));
+        $data = $check->fetch();
+        $row = $check->rowCount();
 
-    function keyIsNotExpired(string $keyDate): bool {
-        $now = new DateTime();
-        $keyDate = new DateTime($keyDate);
-        $interval = $now->diff($keyDate);
+        if ($row == 1) {
+            $now = new DateTime();
+            $keyDate = new DateTime($data['verify_key_date']);
+            $interval = $now->diff($keyDate);
 
-        return ($interval->h < 2);
-    }
-
-    function setError(string $message): void {
-        global $resetMessage, $resetClass;
-
-        $resetMessage = $message;
-        $resetClass = 'bg-red-50 text-red-700';
-    }
-
-    function setWarning(string $message): void {
-        global $resetMessage, $resetClass;
-
-        $resetMessage = $message;
-        $resetClass = 'bg-yellow-50 text-yellow-700';
-    }
-
-    function setSuccess(string $message): void {
-        global $resetMessage, $resetClass;
-
-        $resetMessage = $message;
-        $resetClass = 'bg-green-50 text-green-700';
-    }
-
-    function redirectAndExit(string $url): void {
-        header("Location: $url");
+            if ($interval->h < 2) {
+                $resetMessage = 'Succes : <br>
+                <a class="font-normal">Votre clé de réinitialisation est valide. Vous pouvez maintenant définir un nouveau mot de passe.</a>';
+                $resetClass = 'bg-green-200 text-green-700';
+            } else {
+                $resetMessage = 'Warning : <br>
+                <a class="font-normal">Votre clé de réinitialisation est expirée. Un nouvel email a été envoyé.</a>';
+                $resetClass = 'bg-yellow-50 text-yellow-700';
+            }
+        } else {
+            $resetMessage = 'Error: <br>
+            <a class="font-normal">La clé de réinitialisation est invalide.</a>';
+            $resetClass = 'bg-red-50 text-red-700';
+        }
+    } else {
+        header('Location: index.php');
         die();
     }
 ?>

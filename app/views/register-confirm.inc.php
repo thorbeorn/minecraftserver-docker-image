@@ -1,41 +1,40 @@
 
 <?php
-    require_once 'config.php'; // On inclut la connexion à la base de données
+require_once 'config.php'; // On inclut la connexion à la base de données
+require_once 'ErrorHandler.php'; // On inclut la classe ErrorHandler
 
-    $confirmMessage = '';
-    $confirmClass = '';
+$confirmMessage = '';
+$confirmClass = '';
 
-    if(!empty($_GET['key'])) {
-        $key = htmlspecialchars($_GET['key']);
+if (!empty($_GET['key'])) {
+    $key = htmlspecialchars($_GET['key']);
 
-        $check = $pdo->prepare('SELECT pseudo, email, password, verify_key_date FROM _user WHERE key_verify = ?');
-        $check->execute(array($key));
-        $data = $check->fetch();
-        $row = $check->rowCount();
+    $registerController = new RegisterController(); // Crée une instance du contrôleur RegisterController
+    $result = $registerController->confirmAccount($key); // Appelle la méthode confirmAccount pour vérifier et confirmer le compte
 
-        if($row == 1){
-            $now = new DateTime();
-            $keyDate = new DateTime($data['verify_key_date']);
-            $interval = $now->diff($keyDate);
-
-            if ($interval->h < 2) {
-                $update = $pdo->prepare('UPDATE _user SET account_confirmed = 1 WHERE key_verify = ?');
-                $update->execute(array($key));
-                $confirmMessage = 'Votre compte a été confirmé avec succès. Vous pouvez maintenant vous connecter.';
-                $confirmClass = 'bg-green-50 text-green-700';
-            } else {
-                // Key is no longer valid, send a new confirmation email
-                $confirmMessage = 'Votre clé de confirmation est expirée. Un nouvel email a été envoyé.';
-                $confirmClass = 'bg-yellow-50 text-yellow-700';
-            }
-        } else {
-            $confirmMessage = 'La clé de confirmation est invalide.';
-            $confirmClass = 'bg-red-50 text-red-700';
-        }
+    // Si la méthode confirmAccount retourne true, l'activation du compte a réussi
+    $registerErr = $_GET['register_err'] ?? '';
+    $message = $_GET['message'] ?? '';
+    
+    // On définit le message à afficher et la classe du message en fonction de la valeur de $registerErr
+    if ($registerErr === 'success') {
+        $confirmMessage = $message;
+        $confirmClass = 'bg-green-50 text-green-700';
+    } elseif ($registerErr === 'expired') {
+        $confirmMessage = $message;
+        $confirmClass = 'bg-yellow-50 text-yellow-700';
+    } elseif ($registerErr === 'invalid') {
+        $confirmMessage = $message;
+        $confirmClass = 'bg-red-50 text-red-700';
     } else {
-        header('Location:inscription.php');
-        die();
+        // Erreur inconnue, afficher un message générique
+        $confirmMessage = 'Une erreur inconnue s\'est produite lors de la confirmation du compte.';
+        $confirmClass = 'bg-red-50 text-red-700';
     }
+} else {
+    header('Location: register.inc.php');
+    die();
+}
 ?>
 
 <div class="max-w-md w-full space-y-8">
@@ -58,7 +57,7 @@
                 </h3>
                 <div class="mt-2 text-sm">
                     <p>
-                        <?php echo $confirmMessage; ?>
+                        <?php echo htmlspecialchars($confirmMessage); ?>
                     </p>
                 </div>
             </div>

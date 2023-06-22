@@ -8,65 +8,15 @@
             if(isset($_GET['reg_err']))
             {
                 $err = htmlspecialchars($_GET['reg_err']);
+                $message = htmlspecialchars(urldecode($_GET['message']));
 
-                switch($err)
-                {
-                    case 'success':
-                    ?>
-                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-3" role="alert">
-                            <strong class="font-bold">Succès</strong>
-                            <span class="block sm:inline">Inscription réussie !</span>
-                        </div>
-                    <?php
-                    break;
-
-                    case 'password':
-                    ?>
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-3" role="alert">
-                            <strong class="font-bold">Erreur</strong>
-                            <span class="block sm:inline">Mot de passe différent</span>
-                        </div>
-                    <?php
-                    break;
-
-                    case 'email':
-                    ?>
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-3" role="alert">
-                            <strong class="font-bold">Erreur</strong>
-                            <span class="block sm:inline">Email non valide</span>
-                        </div>
-                    <?php
-                    break;
-
-                    case 'email_length':
-                    ?>
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-3" role="alert">
-                            <strong class="font-bold">Erreur</strong>
-                            <span class="block sm:inline">Email trop long</span>
-                        </div>
-                    <?php 
-                    break;
-
-                    case 'pseudo_length':
-                    ?>
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-3" role="alert">
-                            <strong class="font-bold">Erreur</strong>
-                            <span class="block sm:inline">Pseudo trop long</span>
-                        </div>
-                    <?php 
-                    break;
-                    
-                    case 'already':
-                    ?>
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-3" role="alert">
-                            <strong class="font-bold">Erreur</strong>
-                            <span class="block sm:inline">Compte déjà existant</span>
-                        </div>
-                    <?php 
-
-                }
-            }
+                $alertClass = ($err === 'success') ? 'green' : 'red';
+            }    
         ?>
+        <div class="bg-<?= $alertClass ?>-100 border border-<?= $alertClass ?>-400 text-<?= $alertClass ?>-700 px-4 py-3 rounded relative mb-3" role="alert">
+            <strong class="font-bold"><?= $err === 'success' ? 'Succès' : 'Erreur' ?></strong>
+            <span class="block sm:inline"><?= $message ?></span>
+        </div>
 
         <h2 class="text-gray-800 font-bold mb-2">Informations personnelles</h2>
         <div class="flex gap-x-2 gap-y-4 sm:gap-x-4 sm:gap-y-8 mb-2 sm:mb-4">

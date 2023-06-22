@@ -43,6 +43,7 @@ $RECYCLE.BIN/
 *.msix
 *.msm
 *.msp
+mariadb-data/
 vendor/
 composer.json
 composer.lock
