@@ -24,7 +24,7 @@
     <p>Pour toute question concernant ces Conditions d'utilisation, veuillez faire un issus sur github.</p>
 
     <div class="flex justify-center mt-4">
-        <a href="inscription.php">
+        <a href="index.php?page=register">
             <button class="bg-[#1C59A3] hover:bg-[#1a4f8a] text-white font-bold py-2 px-4 rounded">
                 Retour
             </button>

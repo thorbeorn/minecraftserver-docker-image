@@ -6,7 +6,7 @@
 
 
     // On définit le contrôleur d'erreur
-    $errorController = new ErrorController();
+    $errorController = new ErrorHandler();
 
     // On récupère le paramètre de page depuis l'URL
     $page = $_GET['page'] ?? 'login'; // 'login' est la page par défaut
@@ -30,6 +30,9 @@
             break;
         case 'reset-password-confirm':
             require_once $viewPath . 'reset-password-confirm.inc.php';
+            break;
+        case 'condition':
+            require_once $viewPath . 'condition.inc.php';
             break;
         case 'dashboard':
             require_once $viewPath . 'dashboard.php';

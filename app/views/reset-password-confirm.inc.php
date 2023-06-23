@@ -1,3 +1,45 @@
+<?php
+    require_once Chemins::CONTROLEURS . 'ResetPasswordController.php'; // Assurez-vous que le chemin vers le fichier ResetPasswordController.php est correct
+    $resetPasswordController = new ResetPasswordController();
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        $key = htmlspecialchars($_GET['key'], ENT_QUOTES, 'UTF-8');
+        $resetPasswordController->validateKey($key);
+    }
+    
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $key = htmlspecialchars($_POST['reset_key'], ENT_QUOTES, 'UTF-8');
+        $password = $_POST['password'];
+        $confirm_password = $_POST['confirm_password'];
+        $resetPasswordController->resetConfirmPassword($key, $password, $confirm_password);
+    }
+
+    $resetMessage = '';
+    $resetClass = 'bg-red-100'; // default to red for errors
+    if (isset($_SESSION['reset_error'])) {
+        $resetMessage = $_SESSION['reset_error'];
+    
+        // Vous devrez également enregistrer le type d'erreur dans la session pour pouvoir le récupérer ici
+        $resetErrorType = $_SESSION['reset_error_type'];
+    
+        switch ($resetErrorType) {
+            case 'match':
+            case 'changed':
+            case 'invalid':
+                $resetClass = 'bg-red-100 text-red-700'; // red for error
+                break;
+            case 'valid':
+                $resetClass = 'bg-green-100 text-green-700'; // green for success
+                break;
+            case 'expired':
+                $resetClass = 'bg-yellow-100 text-yellow-700'; // yellow for warning
+                break;
+        }
+        // N'oubliez pas de supprimer les messages d'erreur de la session après les avoir affichés
+        unset($_SESSION['reset_error'], $_SESSION['reset_error_type']);
+    }
+
+?>
+
 <div class="max-w-md w-full space-y-10">
     <div class="m-10">
         <div>
@@ -19,8 +61,8 @@
                 </div>
             <?php endif; ?>
             <?php if (!empty($key)): ?>
-                <form class="mt-8 space-y-6" action="content_confirmation_reset.php" method="POST">
-                    <input type="hidden" name="reset_key" value="<?php echo $key; ?>">
+                <form class="mt-8 space-y-6" method="POST">
+                    <input type="hidden" name="reset_key" value="<?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8'); ?>">
                     <div class="rounded-md shadow-sm -space-y-px">
                         <div class="w-full mb-4 relative">
                             <label class="block text-gray-800 font-medium">Mot de passe</label>

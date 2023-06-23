@@ -1,6 +1,10 @@
 <?php
-    require_once 'Controller/ResetPasswordController.php'; // Assurez-vous que le chemin vers le fichier ResetPasswordController.php est correct
+    require_once Chemins::CONTROLEURS . 'ResetPasswordController.php'; // Assurez-vous que le chemin vers le fichier ResetPasswordController.php est correct
     $resetPasswordController = new ResetPasswordController();
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $email = $_POST['email'];
+        $resetPasswordController->resetPassword($email);
+    }
 ?>
 
 <div class="flex items-center justify-center mt-10 mb-5">
@@ -9,28 +13,30 @@
 <h1 class="text-[#1C59A3] text-3xl font-sans font-bold text-center mb-10">Réinitialisation</h1>
 <div class="px-10">
     <p class="max-w-md mb-5 text-gray-600 font-normal">Veuillez saisir votre adresse courriel. Vous recevrez un lien pour créer un nouveau mot de passe par courriel.</p>
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+    <form method="post">
     <?php 
-            if(isset($_GET['reg_err']))
+            if(isset($_GET['reset_err']))
             {
-                $err = htmlspecialchars($_GET['reg_err']);
+                $err = htmlspecialchars($_GET['reset_err']);
+                $message = htmlspecialchars($_GET[urldecode('message')]);
+
 
                 switch($err)
                 {
                     case 'success':
                     ?>
                         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-3" role="alert">
-                            <strong class="font-bold">Succès</strong>
-                            <span class="block sm:inline">Envoie du mail de réinitialisation de mot de passe</span>
+                            <strong class="font-bold">Succès :</strong><br>
+                            <span class="block sm:inline"><?= $message ?></span>
                         </div>
                     <?php
                     break;
 
-                    case 'email':
+                    case 'email' or 'notfound':
                     ?>
                         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-3" role="alert">
-                            <strong class="font-bold">Erreur</strong>
-                            <span class="block sm:inline">Email inconnu</span>
+                            <strong class="font-bold">Erreur :</strong><br>
+                            <span class="block sm:inline"><?= $message ?></span>
                         </div>
                     <?php
                     break;
@@ -38,6 +44,7 @@
                 }
             }
         ?>
+        
         <div class="w-full mb-4 relative">
             <label class="block text-gray-800 font-medium">Adresse courriel</label>
             <i class="fa-solid fa-envelope absolute text-gray-500 left-3 top-11"></i>
@@ -49,9 +56,3 @@
         <a href="/" class="text-[#1C59A3] hover:text-blue-920 hover:underline font-bold">Retourner à la page de connexion</a>
     </div>
 </div>
-
-<?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $resetPasswordController->resetPassword();
-    }
-?>

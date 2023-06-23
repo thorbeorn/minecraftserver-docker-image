@@ -1,14 +1,16 @@
 <?php
 
-require_once Chemins::LIBS . 'email.class.php';
 require_once 'ModelsPDO.php';
 require_once 'ErrorHandler.php';
+require_once 'lib/GestionEmail.php';
+
 
 class RegisterController extends ModelsPDO {
-    private $pdo;
-
-    public function __construct($pdo) {
-        $this->pdo = $pdo;
+    private $errorHandler;
+    
+    public function __construct() {
+        parent::__construct();
+        $this->errorHandler = new ErrorHandler();
     }
 
     public function registerUser($pseudo, $email, $password, $passwordRetype) {
@@ -52,32 +54,31 @@ class RegisterController extends ModelsPDO {
                             ));
 
                             GestionEmail::sendMailVerify('Confirmation de compte', $email, $key);
-                            header(RegisterDirectWithError('success'));
+                            $this->errorHandler->RegisterDirectWithError('success');
                             exit();
                         } else {
-                            header(RegisterDirectWithError('password'));
+                            $this->errorHandler->RegisterDirectWithError('password');
                             exit();
                         }
                     } else {
-                        header(RegisterDirectWithError('email'));
+                        $this->errorHandler->RegisterDirectWithError('email');
                         exit();
                     }
                 } else {
-                    header(RegisterDirectWithError('email_length'));
+                    $this->errorHandler->RegisterDirectWithError('email_length');
                     exit();
                 }
             } else {
-                header(RegisterDirectWithError('pseudo_length'));
+                $this->errorHandler->RegisterDirectWithError('pseudo_length');
                 exit();
             }
         } else {
-            header(RegisterDirectWithError('already'));
+            $this->errorHandler->RegisterDirectWithError('already');
             exit();
         }
     }
 
     public function confirmAccount($key) {
-        $ErrorMessage = '';
 
         if (!empty($key)) {
             $key = htmlspecialchars($key);
@@ -94,22 +95,22 @@ class RegisterController extends ModelsPDO {
 
                 if ($interval->h < 2) {
                     $update = $this->pdo->prepare('UPDATE _user SET account_confirmed = 1 WHERE key_verify = ?');
-                    RegistreConfirmationError('success')
+                    $this->errorHandler->RegistreConfirmationError('success');
                     exit();
                 } else {
                     // La clé n'est plus valide, envoyez un nouvel e-mail de confirmation
                     GestionEmail::sendMailVerify('Confirmation de compte', $data['email'], $key);
-                    RegistreConfirmationError('expired')
+                    $this->errorHandler->RegistreConfirmationError('expired');
                     exit();
                 }
             } else {
                 // La clé n'est pas valide
-                RegistreConfirmationError('invalid')
+                $this->errorHandler->RegistreConfirmationError('invalid');
                 exit();
             }
         } else {
             // Pas de clé fournie
-            header('Location: inscription.php');
+            $this->errorHandler->header('Location: index.php?page=register');
             exit();
         }
     }

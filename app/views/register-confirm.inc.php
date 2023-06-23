@@ -1,10 +1,33 @@
 <?php 
+    require_once Chemins::CONTROLEURS . 'RegisterController.php'; // Assurez-vous que le chemin vers le fichier ResetPasswordController.php est correct
+    $RegisterController = new RegisterController(); 
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        $key = $_GET['key'];
+        $RegisterController->confirmAccount($key);
+    }
+    
     $confirmMessage = '';
-    $confirmClass = '';
-
-    if(isset($_GET['confirmMessage']) && isset($_GET['confirmClass'])) {
-        $confirmMessage = htmlspecialchars($_GET['confirmMessage']);
-        $confirmClass = htmlspecialchars($_GET['confirmClass']);
+    $resetMessage = '';
+    $confirmClass = 'bg-red-100'; // default to red for errors
+    if (isset($_SESSION['registerConfirm_err'])) {
+        $confirmMessage = $_SESSION['registerConfirm_err'];
+    
+        // Vous devrez également enregistrer le type d'erreur dans la session pour pouvoir le récupérer ici
+        $registerConfirm_type = $_SESSION['registerConfirm_type'];
+    
+        switch ($registerConfirm_type) {
+            case 'invalid':
+                $confirmClass = 'bg-red-100 text-red-700'; // red for error
+                break;
+            case 'success':
+                $confirmClass = 'bg-green-100 text-green-700'; // green for success
+                break;
+            case 'expired':
+                $confirmClass = 'bg-yellow-100 text-yellow-700'; // yellow for warning
+                break;
+        }
+        // N'oubliez pas de supprimer les messages d'erreur de la session après les avoir affichés
+        unset($_SESSION['registerConfirm_err'], $_SESSION['registerConfirm_type']);
     }
 ?>
 <div class="max-w-md w-full space-y-8 p-6">

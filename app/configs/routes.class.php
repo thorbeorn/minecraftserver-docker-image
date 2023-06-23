@@ -14,7 +14,7 @@ class Chemins {
    const IMAGES = "public/assets/img/";
    
    // Autres chemins du site
-   const CONFIGS = ".configs/";
+   const CONFIGS = "configs/";
    const LIBS = "libs/";
 }
 ?>

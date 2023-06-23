@@ -4,10 +4,11 @@ require_once 'ModelsPDO.php';
 require_once 'ErrorHandler.php'; 
 
 class LoginController extends ModelsPDO {
-    private $pdo;
+    private $errorHandler;
 
-    public function __construct($pdo) {
-        $this->pdo = $pdo;
+    public function __construct() {
+        parent::__construct(); // Pour appeler le constructeur de la classe parent (ModelsPDO) qui initialise $pdo
+        $this->errorHandler = new ErrorHandler();
     }
 
     public function loginUser($pseudo, $password) {
@@ -23,10 +24,10 @@ class LoginController extends ModelsPDO {
                 header('Location: dashboard.php');
                 exit();
             } else {
-                LoginreDirectWithError('password');
+                $this->errorHandler->LoginreDirectWithError('password');
             }
         } else {
-            LoginreDirectWithError('already');
+            $this->errorHandler->LoginreDirectWithError('already');
         }
     }
 }
