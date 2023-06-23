@@ -1,61 +1,7 @@
-<?php
-    require_once 'config.php';
-    $resetMessage = '';
-    $resetClass = '';
-    $key = '';
-    if (!empty($_GET['key'])) {
-        $key = htmlspecialchars($_GET['key']);
-    }
-    if ($_POST['password'] == $_POST['confirm_password']) {
-        $hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $update = $pdo->prepare('UPDATE _user SET password = ? WHERE verify_key = ? AND verify_key_date IS NOT NULL AND verify_key_date >= DATE_SUB(NOW(), INTERVAL 2 HOUR)');
-        $update->execute([$hashedPassword, $key]);
-    
-        if ($update->rowCount() == 1) {
-            header('Location: index.php?login_err=success');
-            exit();
-        }
-    }
-    
-    // En cas d'échec de la mise à jour du mot de passe
-    $resetMessage = 'Erreur : La clé de réinitialisation est invalide.';
-    $resetClass = 'bg-red-50 text-red-700';
-    
-    if (!empty($key)) {
-        $check = $pdo->prepare('SELECT pseudo, email, password, verify_key_date FROM _user WHERE key_verify = ?');
-        $check->execute(array($key));
-        $data = $check->fetch();
-        $row = $check->rowCount();
-
-        if ($row == 1) {
-            $now = new DateTime();
-            $keyDate = new DateTime($data['verify_key_date']);
-            $interval = $now->diff($keyDate);
-
-            if ($interval->h < 2) {
-                $resetMessage = 'Succes : <br>
-                <a class="font-normal">Votre clé de réinitialisation est valide. Vous pouvez maintenant définir un nouveau mot de passe.</a>';
-                $resetClass = 'bg-green-200 text-green-700';
-            } else {
-                $resetMessage = 'Warning : <br>
-                <a class="font-normal">Votre clé de réinitialisation est expirée. Un nouvel email a été envoyé.</a>';
-                $resetClass = 'bg-yellow-50 text-yellow-700';
-            }
-        } else {
-            $resetMessage = 'Error: <br>
-            <a class="font-normal">La clé de réinitialisation est invalide.</a>';
-            $resetClass = 'bg-red-50 text-red-700';
-        }
-    } else {
-        header('Location: index.php');
-        die();
-    }
-?>
-
 <div class="max-w-md w-full space-y-10">
     <div class="m-10">
         <div>
-            <img class="mx-auto h-12 w-auto" src="assets/img/logo.png" alt="MCServerManager">
+            <img class="mx-auto h-12 w-auto" src="<?= Chemins::IMAGES . 'logo.png'; ?>" alt="MCServerManager">
             <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
                 Réinitialisation du mot de passe
             </h2>

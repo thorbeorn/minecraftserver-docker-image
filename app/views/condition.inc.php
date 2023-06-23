@@ -1,6 +1,6 @@
 <div class="p-7 max-w-5xl mx-auto">
     <div class="flex items-center justify-center mt-5 mb-10">
-        <img class="mx-auto h-12 w-auto" src="assets/img/logo.png" alt="MCServerManager">
+        <img class="mx-auto h-12 w-auto" src="<?= Chemins::IMAGES . 'logo.png'; ?>" alt="MCServerManager">
     </div>
 
     <h1 class="text-center text-[#1C59A3] text-3xl font-sans font-bold mb-5">Conditions d'utilisation</h1>

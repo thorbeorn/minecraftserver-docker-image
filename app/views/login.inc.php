@@ -1,5 +1,5 @@
 <div class="flex items-center justify-center mt-10 mb-5">
-    <img class="mx-auto h-12 w-auto" src="assets/img/logo.png" alt="MCServerManager">
+    <img class="mx-auto h-12 w-auto" src="<?= Chemins::IMAGES . 'logo.png'; ?>" alt="MCServerManager">
 </div>
 <h1 class="text-[#1C59A3] text-3xl font-sans font-bold text-center mb-10">Connexion</h1>
 <div class="px-10" >

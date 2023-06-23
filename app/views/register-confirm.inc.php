@@ -1,45 +1,15 @@
+<?php 
+    $confirmMessage = '';
+    $confirmClass = '';
 
-<?php
-require_once 'config.php'; // On inclut la connexion à la base de données
-require_once 'ErrorHandler.php'; // On inclut la classe ErrorHandler
-
-$confirmMessage = '';
-$confirmClass = '';
-
-if (!empty($_GET['key'])) {
-    $key = htmlspecialchars($_GET['key']);
-
-    $registerController = new RegisterController(); // Crée une instance du contrôleur RegisterController
-    $result = $registerController->confirmAccount($key); // Appelle la méthode confirmAccount pour vérifier et confirmer le compte
-
-    // Si la méthode confirmAccount retourne true, l'activation du compte a réussi
-    $registerErr = $_GET['register_err'] ?? '';
-    $message = $_GET['message'] ?? '';
-    
-    // On définit le message à afficher et la classe du message en fonction de la valeur de $registerErr
-    if ($registerErr === 'success') {
-        $confirmMessage = $message;
-        $confirmClass = 'bg-green-50 text-green-700';
-    } elseif ($registerErr === 'expired') {
-        $confirmMessage = $message;
-        $confirmClass = 'bg-yellow-50 text-yellow-700';
-    } elseif ($registerErr === 'invalid') {
-        $confirmMessage = $message;
-        $confirmClass = 'bg-red-50 text-red-700';
-    } else {
-        // Erreur inconnue, afficher un message générique
-        $confirmMessage = 'Une erreur inconnue s\'est produite lors de la confirmation du compte.';
-        $confirmClass = 'bg-red-50 text-red-700';
+    if(isset($_GET['confirmMessage']) && isset($_GET['confirmClass'])) {
+        $confirmMessage = htmlspecialchars($_GET['confirmMessage']);
+        $confirmClass = htmlspecialchars($_GET['confirmClass']);
     }
-} else {
-    header('Location: register.inc.php');
-    die();
-}
 ?>
-
-<div class="max-w-md w-full space-y-8">
+<div class="max-w-md w-full space-y-8 p-6">
     <div>
-        <img class="mx-auto h-12 w-auto" src="assets/img/logo.png" alt="Logo">
+        <img class="mx-auto h-12 w-auto" src="<?= Chemins::IMAGES . 'logo.png'; ?>" alt="Logo">
         <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Confirmation de votre compte
         </h2>
@@ -57,7 +27,7 @@ if (!empty($_GET['key'])) {
                 </h3>
                 <div class="mt-2 text-sm">
                     <p>
-                        <?php echo htmlspecialchars($confirmMessage); ?>
+                    <?php echo $confirmMessage; ?>
                     </p>
                 </div>
             </div>
@@ -65,7 +35,7 @@ if (!empty($_GET['key'])) {
     </div>
     <div class="flex items-center justify-between">
         <div class="text-sm">
-            <a href="/" class="font-medium text-indigo-600 hover:text-indigo-500">
+            <a href="index.php?page=login" class="font-medium text-indigo-600 hover:text-indigo-500">
                 Connectez-vous à votre compte
             </a>
         </div>

@@ -1,10 +1,14 @@
 <div class="flex items-center justify-center mt-10 mb-5">
-    <img class="mx-auto h-12 w-auto" src="assets/img/logo.png" alt="MCServerManager">
+    <img class="mx-auto h-12 w-auto" src="<?= Chemins::IMAGES . 'logo.png'; ?>" alt="MCServerManager">
 </div>
 <h1 class="text-[#1C59A3] text-3xl font-sans font-bold text-center mb-10">Inscription</h1>
 <div class="px-10">
     <form action="traitement_inscription.php" method="post">
         <?php 
+            $err = '';
+            $message = '';
+            $alertClass = '';
+
             if(isset($_GET['reg_err']))
             {
                 $err = htmlspecialchars($_GET['reg_err']);
@@ -13,10 +17,13 @@
                 $alertClass = ($err === 'success') ? 'green' : 'red';
             }    
         ?>
-        <div class="bg-<?= $alertClass ?>-100 border border-<?= $alertClass ?>-400 text-<?= $alertClass ?>-700 px-4 py-3 rounded relative mb-3" role="alert">
-            <strong class="font-bold"><?= $err === 'success' ? 'Succès' : 'Erreur' ?></strong>
-            <span class="block sm:inline"><?= $message ?></span>
-        </div>
+
+        <?php if (!empty($err) && !empty($message)) { ?>
+            <div class="bg-<?= $alertClass ?>-100 border border-<?= $alertClass ?>-400 text-<?= $alertClass ?>-700 px-4 py-3 rounded relative mb-3" role="alert">
+                <strong class="font-bold"><?= $err === 'success' ? 'Succès' : 'Erreur' ?></strong>
+                <span class="block sm:inline"><?= $message ?></span>
+            </div>
+        <?php } ?>
 
         <h2 class="text-gray-800 font-bold mb-2">Informations personnelles</h2>
         <div class="flex gap-x-2 gap-y-4 sm:gap-x-4 sm:gap-y-8 mb-2 sm:mb-4">

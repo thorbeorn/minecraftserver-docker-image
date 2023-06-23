@@ -3,7 +3,7 @@
 require_once 'ModelsPDO.php';
 require_once 'ErrorHandler.php'; 
 
-class LoginController {
+class LoginController extends ModelsPDO {
     private $pdo;
 
     public function __construct($pdo) {

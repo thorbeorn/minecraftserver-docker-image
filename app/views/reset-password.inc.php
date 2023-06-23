@@ -1,10 +1,15 @@
+<?php
+    require_once 'Controller/ResetPasswordController.php'; // Assurez-vous que le chemin vers le fichier ResetPasswordController.php est correct
+    $resetPasswordController = new ResetPasswordController();
+?>
+
 <div class="flex items-center justify-center mt-10 mb-5">
-    <img class="mx-auto h-12 w-auto" src="assets/img/logo.png" alt="MCServerManager">
+    <img class="mx-auto h-12 w-auto" src="<?= Chemins::IMAGES . 'logo.png'; ?>" alt="MCServerManager">
 </div>
 <h1 class="text-[#1C59A3] text-3xl font-sans font-bold text-center mb-10">Réinitialisation</h1>
 <div class="px-10">
     <p class="max-w-md mb-5 text-gray-600 font-normal">Veuillez saisir votre adresse courriel. Vous recevrez un lien pour créer un nouveau mot de passe par courriel.</p>
-    <form action="traitement_reset.php" method="post">
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <?php 
             if(isset($_GET['reg_err']))
             {
@@ -40,7 +45,13 @@
         </div>
         <button type="submit" class="w-full bg-[#1C59A3] text-white px-4 py-2 rounded-lg hover:bg-blue-600 mb-5">Envoyer le lien de réinitialisation</button>
     </form>
-    <div class="flex items-center justify-center bg-gray-100 text-gray-500 px-10 py-6 border-t border-gray-200">
+    <div class="flex items-center justify-center  text-gray-500 px-10 py-6 border-t border-gray-200">
         <a href="/" class="text-[#1C59A3] hover:text-blue-920 hover:underline font-bold">Retourner à la page de connexion</a>
     </div>
 </div>
+
+<?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $resetPasswordController->resetPassword();
+    }
+?>

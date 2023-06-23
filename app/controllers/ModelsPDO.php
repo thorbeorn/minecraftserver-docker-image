@@ -1,5 +1,5 @@
 <?php
-require_once '../configs/mysqlconfig.class.php';
+require_once Chemins::CONFIGS . 'MySQLConfig.php';
 
 class ModelsPDO {
 
@@ -15,7 +15,7 @@ class ModelsPDO {
     protected static $requete = "";
     protected static $resultat = null;
 
-    private $pdo;
+    protected $pdo;
     
     public function __construct() {
         try {
@@ -30,9 +30,6 @@ class ModelsPDO {
             die("ERROR: Could not connect. " . $e->getMessage());
         }
     }
-
-
+    
 }
-
-
-
+?>

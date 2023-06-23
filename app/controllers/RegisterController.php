@@ -4,7 +4,7 @@ require_once Chemins::LIBS . 'email.class.php';
 require_once 'ModelsPDO.php';
 require_once 'ErrorHandler.php';
 
-class RegisterController {
+class RegisterController extends ModelsPDO {
     private $pdo;
 
     public function __construct($pdo) {
