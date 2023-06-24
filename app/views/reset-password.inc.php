@@ -18,7 +18,7 @@
             if(isset($_GET['reset_err']))
             {
                 $err = htmlspecialchars($_GET['reset_err']);
-                $message = htmlspecialchars($_GET[urldecode('message')]);
+                $message = htmlspecialchars(rawurldecode(rawurldecode($_GET['message'])));
 
 
                 switch($err)

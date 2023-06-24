@@ -21,7 +21,7 @@
             if(isset($_GET['register_err']))
             {
                 $err = htmlspecialchars($_GET['register_err']);
-                $message = htmlspecialchars(urldecode($_GET['message']));
+                $message = htmlspecialchars(rawurldecode(rawurldecode($_GET['message'])));
                 switch($err)
                 {
                     case 'success':

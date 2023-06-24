@@ -44,6 +44,7 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 mariadb-data/
+mariadb-data/*
 vendor/
 composer.json
 composer.lock

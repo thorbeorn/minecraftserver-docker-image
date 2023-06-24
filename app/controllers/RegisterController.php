@@ -83,34 +83,38 @@ class RegisterController extends ModelsPDO {
         if (!empty($key)) {
             $key = htmlspecialchars($key);
 
-            $check = $this->pdo->prepare('SELECT pseudo, email, password, verify_key_date FROM _user WHERE key_verify = ?');
+            $check = $this->pdo->prepare('SELECT pseudo, email, password, verify_key_date, account_confirmed FROM _user WHERE key_verify = ?');
             $check->execute(array($key));
             $data = $check->fetch();
             $row = $check->rowCount();
 
             if ($row == 1) {
+                if ($data['account_confirmed'] == 1) {
+                    // Le compte est déjà confirmé, redirigez l'utilisateur vers la page de connexion
+                    $this->errorHandler->LoginreDirectWithError('confirmed');
+                    exit();
+                }
+
                 $now = new DateTime();
                 $keyDate = new DateTime($data['verify_key_date']);
                 $interval = $now->diff($keyDate);
 
                 if ($interval->h < 2) {
                     $update = $this->pdo->prepare('UPDATE _user SET account_confirmed = 1 WHERE key_verify = ?');
+                    $update->execute(array($key));
                     $this->errorHandler->RegistreConfirmationError('success');
-                    exit();
                 } else {
                     // La clé n'est plus valide, envoyez un nouvel e-mail de confirmation
                     GestionEmail::sendMailVerify('Confirmation de compte', $data['email'], $key);
                     $this->errorHandler->RegistreConfirmationError('expired');
-                    exit();
                 }
             } else {
                 // La clé n'est pas valide
                 $this->errorHandler->RegistreConfirmationError('invalid');
-                exit();
             }
         } else {
             // Pas de clé fournie
-            $this->errorHandler->header('Location: index.php?page=register');
+            header('Location: index.php?page=register');
             exit();
         }
     }

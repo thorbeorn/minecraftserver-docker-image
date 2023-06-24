@@ -1,8 +1,10 @@
 <?php 
     require_once Chemins::CONTROLEURS . 'RegisterController.php'; // Assurez-vous que le chemin vers le fichier ResetPasswordController.php est correct
     $RegisterController = new RegisterController(); 
+    // var_dump($RegisterController); // Ajoutez cette ligne
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        $key = $_GET['key'];
+        $key = htmlspecialchars($_GET['key'], ENT_QUOTES, 'UTF-8');
+        // var_dump($key); // Ajoutez cette ligne
         $RegisterController->confirmAccount($key);
     }
     

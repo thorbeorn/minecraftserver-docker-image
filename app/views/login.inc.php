@@ -19,7 +19,7 @@
             if(isset($_GET['login_err']))
             {
                 $err = htmlspecialchars($_GET['login_err']);
-                $message = htmlspecialchars(rawurldecode($_GET['message']));
+                $message = htmlspecialchars(rawurldecode(rawurldecode($_GET['message'])));
                 if ($err === 'password' or $err === 'already') {
         ?>
                     <div class="bg-red-500 text-white p-3 rounded mb-3">
@@ -33,6 +33,13 @@
                         <strong>Succès</strong> : <?= $message ?>
                     </div>
 
+        <?php
+                }
+                elseif ($err === 'confirmed') {
+        ?>
+                    <div class="bg-orange-500 text-white p-3 rounded mb-3">
+                        <strong>Warning</strong> : <?= $message ?>
+                    </div>
         <?php
                 }
             }
