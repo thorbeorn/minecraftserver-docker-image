@@ -11,17 +11,19 @@ services:
       - ./app:/var/www/html
       - ./scripts/php:/var/www/html/scripts
 
+
+
   mariadb:
-    image: mariadb:10.4
+    image: mariadb:latest
     restart: always
     ports:
       - 3306:3306
     volumes:
-      - ./mariadb-data:/var/lib/mysql
-      - ./scripts/sql:/backup
+        - ./mariadb-data:/var/lib/mysql
+        - ./scripts/sql:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: root
-    entrypoint: /bin/bash -c "/docker-entrypoint.sh mysqld && sleep 10 && mysql -u root -proot < /backup/donnees_bdd.sql"
+    command: --init-file /docker-entrypoint-initdb.d/initial.sql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
