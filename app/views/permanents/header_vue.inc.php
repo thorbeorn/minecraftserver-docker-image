@@ -2,14 +2,14 @@
 <html lang="fr">
 <head>
     <!-- Primary Meta Tags -->
-    <title>MCServerManager</title>
+    <title>MCServerManager - Authentification</title>
     <meta name="title" content="MCServerManager" />
     <meta name="description" content="Pour les clients de MCServerManager qui souhaite se connecter à leur panel" />
     <meta name="keywords" content="MCServerManager, connexion, client, panel, dashboard, espace client, espace, client, dashboard, panel, MCServerManager, next, contains" />
     <meta name="author" content="MCServerManager" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/png" href="<?php Chemins::IMAGES . 'icon_logo.png' ?>"/>
+    <link rel="shortcut icon" type="image/png" href="<?= Chemins::IMAGES . 'icon_logo.png' ?>"/>
 
     <!-- Meta Tags Generated with https://metatags.io -->
     <script src="https://cdn.tailwindcss.com"></script>

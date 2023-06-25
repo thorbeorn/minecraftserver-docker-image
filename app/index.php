@@ -34,9 +34,6 @@
         case 'condition':
             require_once $viewPath . 'condition.inc.php';
             break;
-        case 'dashboard':
-            require_once $viewPath . 'dashboard.php';
-            break;
         default:
             // Si la page n'est pas reconnue, on affiche une erreur 404
             $errorController->handleError404();

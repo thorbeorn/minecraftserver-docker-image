@@ -46,7 +46,7 @@ $RECYCLE.BIN/
 mariadb-data/
 mariadb-data/*
 vendor/
-
+test.html
 # Windows shortcuts
 *.lnk
 
