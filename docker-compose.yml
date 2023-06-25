@@ -1,7 +1,7 @@
 version: '3'
 services:
   php:
-    image: php:8.2-apache
+    build: ./build/web
     restart: always
     ports:
       - 9000:80
@@ -9,21 +9,17 @@ services:
       - mariadb
     volumes:
       - ./app:/var/www/html
-      - ./scripts/php:/var/www/html/scripts
-
-
+      - ./lib:/var/www/html/lib
+    entrypoint: /bin/bash -c "service apache2 start && cd lib/ && composer install && cd .. && service apache2 stop && /usr/sbin/apache2ctl -D FOREGROUND"
 
   mariadb:
-    image: mariadb:latest
+    build: ./build/bdd
     restart: always
-    ports:
-      - 3306:3306
     volumes:
         - ./mariadb-data:/var/lib/mysql
-        - ./scripts/sql:/docker-entrypoint-initdb.d
+        - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       MYSQL_ROOT_PASSWORD: root
-    command: --init-file /docker-entrypoint-initdb.d/initial.sql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest

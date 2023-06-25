@@ -1,17 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Hôte : mariadb
--- Généré le : sam. 24 juin 2023 à 19:01
--- Version du serveur : 11.0.2-MariaDB-1:11.0.2+maria~ubu2204
--- Version de PHP : 8.1.17
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -20,6 +6,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `mcserverminecraft`
 --
+CREATE DATABASE IF NOT EXISTS mcserverminecraft;
+USE mcserverminecraft;
 
 -- --------------------------------------------------------
 

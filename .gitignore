@@ -46,8 +46,7 @@ $RECYCLE.BIN/
 mariadb-data/
 mariadb-data/*
 vendor/
-composer.json
-composer.lock
+
 # Windows shortcuts
 *.lnk
 
