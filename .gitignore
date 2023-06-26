@@ -47,6 +47,7 @@ mariadb-data/
 mariadb-data/*
 vendor/
 test.html
+backup.html
 # Windows shortcuts
 *.lnk
 
