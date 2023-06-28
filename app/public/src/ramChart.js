@@ -1,3 +1,11 @@
+// Import de Chart.js et du plugin de zoom
+
+import Chart from 'chart.js/auto';
+import zoom from 'chartjs-plugin-zoom';
+
+// Enregistrez le plugin de zoom
+Chart.register(zoom);
+
 // Sélectionner l'élément canvas du graphique de la RAM
 const ramPerformanceChartCanvas = document.getElementById('ram-performance-chart');
 
@@ -21,6 +29,26 @@ const ramPerformanceChart = new Chart(ramPerformanceChartCanvas, {
     type: 'line', // Type de graphique : ligne
     data: ramPerformanceData, // Utiliser les données définies précédemment
     options: {
+        plugins: {
+            zoom: {
+                pan: {
+                    enabled: true,
+                    mode: 'xy'
+                },
+                zoom: {
+                    wheel: {
+                        enabled: true,
+                    },
+                    drag: {
+                        enabled: true,
+                    },
+                    pinch: {
+                        enabled: true,
+                    },
+                    mode: 'xy'
+                }
+            }
+        },
         responsive: true, // Rendre le graphique réactif pour s'adapter à la taille de l'élément contenant
         scales: {
             y: {
@@ -50,8 +78,11 @@ function updateRamPerformanceChart(newData) {
     ramPerformanceChart.update();
 }
 
-// Exemple d'utilisation : mettre à jour le graphique de la RAM avec de nouvelles données toutes les 5 secondes
-setInterval(() => {
-    const randomData = [Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100];
-    updateRamPerformanceChart(randomData);
-}, 5000);
+export default function createRamChart() {
+    // Exemple d'utilisation : mettre à jour le graphique de la RAM avec de nouvelles données toutes les 5 secondes
+    setInterval(() => {
+        const randomData = [Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100];
+        updateRamPerformanceChart(randomData);
+    }, 5000);
+}
+

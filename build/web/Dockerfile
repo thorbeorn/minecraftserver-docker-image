@@ -4,7 +4,11 @@ FROM php:8.2-apache
 RUN apt-get update \
     && apt-get install -y --no-install-recommends locales apt-utils libicu-dev g++ libpng-dev libxml2-dev libzip-dev libonig-dev libxslt-dev zip unzip curl wget vim nano ;
 
-
+# NPM
+RUN npm install npm@latest -g && \
+    npm install n -g && \
+    n latest
+    
 # French language
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen && \

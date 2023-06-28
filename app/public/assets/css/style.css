@@ -1,0 +1,23 @@
+/* Personnalisation scroll bar */
+
+/* This will apply to the scrollbar track */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #2E3440; /* nord0 color in Nord theme */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #88C0D0; /* nord8 color in Nord theme */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #81A1C1; /* nord9 color in Nord theme */
+}
+
+

@@ -1,3 +1,11 @@
+// Import de Chart.js et du plugin de zoom
+
+import Chart from 'chart.js/auto';
+import zoom from 'chartjs-plugin-zoom';
+
+// Enregistrez le plugin de zoom
+Chart.register(zoom);
+
 // Obtenez la référence vers le canvas
 const cpuPerformanceChartCanvas = document.getElementById('cpu-performance-chart');
 
@@ -20,6 +28,26 @@ const cpuPerformanceChart = new Chart(cpuPerformanceChartCanvas, {
   type: 'line', // Type de graphique (courbes dans cet exemple)
   data: cpuPerformanceData,
   options: {
+    plugins: {
+        zoom: {
+            pan: {
+                enabled: true,
+                mode: 'xy'
+            },
+            zoom: {
+                wheel: {
+                    enabled: true,
+                },
+                drag: {
+                    enabled: true,
+                },
+                pinch: {
+                    enabled: true,
+                },
+                mode: 'xy'
+            }
+        }
+    },
     responsive: true,
     scales: {
       y: {
@@ -36,6 +64,7 @@ const cpuPerformanceChart = new Chart(cpuPerformanceChartCanvas, {
       },
     },
   },
+  
 });
 
 // Fonction pour mettre à jour les données du graphique
@@ -53,10 +82,12 @@ function updateCpuPerformanceChart(timestamp, cpuUsage) {
   cpuPerformanceChart.update();
 }
 
-// Fonction pour mettre à jour les données du graphique
-setInterval(() => {
-    const timestamp = new Date().toLocaleTimeString();
-    const cpuUsage = Math.random() * 100; // Valeur aléatoire entre 0 et 100
-    updateCpuPerformanceChart(timestamp, cpuUsage);
-    }
-, 1000);
+
+export default function createCpuChart() {
+    // Fonction pour mettre à jour les données du graphique
+    setInterval(() => {
+        const timestamp = new Date().toLocaleTimeString();
+        const cpuUsage = Math.random() * 100; // Valeur aléatoire entre 0 et 100
+        updateCpuPerformanceChart(timestamp, cpuUsage);
+    }, 1000);
+}
