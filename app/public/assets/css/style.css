@@ -20,4 +20,8 @@
     background: #81A1C1; /* nord9 color in Nord theme */
 }
 
+/* Personnalisation des transition color */
 
+* {
+    transition: background-color 0.5s ease, color 0.2s ease;
+}
