@@ -11,7 +11,7 @@ $(document).ready(function() {
     $("#aside-toggle").click(function() {
         let logoSidebar = $("#logo-sidebar");
         if (logoSidebar.is(":visible")) {
-            logoSidebar.animate({width: 'toggle', opacity: 0}, 500);
+            logoSidebar.animate({width: 'toggle', opacity: 1}, 200);
         } else {
             logoSidebar.animate({width: 'toggle', opacity: 1}, 500);
         }
@@ -28,6 +28,7 @@ window.onload = () => {
         toggleDarkMode();
     }
 };
+
 
 const toggleDarkMode = () => {
     const logo = document.getElementById('logo');

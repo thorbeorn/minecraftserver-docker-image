@@ -9,23 +9,21 @@
     <!-- CSS -->
     <link href="public/assets/css/output.css" rel="stylesheet">
     <link href="public/assets/css/style.css" rel="stylesheet">
-    <style>
-        /* Ajoutez votre propre CSS personnalisé ici, si nécessaire */
-    </style>
+    <link href="public/assets/css/font.css" rel="stylesheet">
 </head>
 
 <body class="flex flex-col h-screen">
 
     <!-- Header -->
-    <header class="flex justify-between bg-[#2e3440]">
+    <header class="flex justify-between dark:bg-[#2e3440] bg-[#D8DEE9]">
         <div class="flex items-center justify-start">
-            <button id="aside-toggle" class="ml-4 mr-2 text-white">
+            <button id="aside-toggle" class="ml-4 mr-2 dark:text-white text-[#2E3440]">
                 <i class="fas fa-bars"></i>
             </button>
             <a href="/" class="flex items-center">
-                <img src="public/assets/img/logo_solo.png" class="h-10" alt="logo" />
+                <img src="public/assets/img/logo_solo.png" class="h-10" alt="logo"  id="logo"/>
             </a>
-            <h1 class="text-white font-bold ml-2 lg:block hidden" style="font-family: 'Century Gothic', sans-serif;">
+            <h1 class="dark:text-white text-[#2E3440] font-bold ml-2 lg:block hidden" style="font-family: 'Century Gothic', sans-serif;">
                 MCServerManager
             </h1>
         </div>
@@ -33,45 +31,42 @@
 
         <div class="flex items-center">
             <div class="flex items-center space-x-5 mr-5">
-                <button type="button"
-                    class="flex items-center text-[#ECEFF4] rounded p-2 font hover:text-[#81A1C1] font-semibold space-x-2">
+                <button type="button" class="flex items-center dark:text-[#ECEFF4] text-[#434C5E] rounded p-2 font dark:hover:text-[#81A1C1] font-semibold space-x-2 hover:text-[#81A1C1]">
                     <i class="fas fa-envelope-open-text"></i>
                     <span class="hover:underline-offset-4 text-normal ">Support</span>
                 </button>
                 <div class="flex items-center space-x-7 mr-5">
-                    <button id="modeToggle" type="button" class="flex items-center rounded p-2 font text-[#ECEFF4] hover:text-[#81A1C1] font-semibold">
+                    <button id="modeToggle" type="button" class="flex items-center rounded p-2 font dark:text-[#ECEFF4] text-[#434C5E] dark:hover:text-[#81A1C1] hover:text-[#81A1C1] font-semibold">
                         <i id="icon" class="fa-solid fa-sun"></i>
-                      </button>
+                    </button>
                 </div>
 
                 <button type="button"
-                    class="flex text-sm bg-gray-900 rounded-full ring-[#202227] ring-4 m-4 focus:ring-[#81A1C1]"
-                    aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                    class="flex text-sm dark:bg-[#2E3440] bg-[#D8DEE9] rounded-full ring-[#202227] ring-4 m-4 dark:focus:ring-[#81A1C1] focus:ring-[#3B4252]" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                     <span class="sr-only">Open user menu</span>
-                    <img class="w-10 h-10 rounded-full"
-                        src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                    <img class="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
                 </button>
             </div>
 
-            <div class="z-50 hidden my-4 text-base list-none  divide-y rounded shadow bg-[#202227] divide-gray-600"
+            <div class="z-50 hidden my-4 text-base list-none  divide-y rounded shadow dark:bg-[#202227] bg-[#D8DEE9] divide-gray-700"
                 id="dropdown-user">
                 <div class="px-4 py-3" role="none">
-                    <p class="text-sm text-white" role="none">
+                    <p class="text-sm dark:text-[#D8DEE9] text-[#434C5E]" role="none">
                         Nom
                     </p>
-                    <p class="text-sm font-medium  truncate text-gray-300" role="none">
+                    <p class="text-sm font-medium truncate dark:text-[#ECEFF4] text-[#2E3440]" role="none">
                         Email
                     </p>
                 </div>
                 <ul class="py-1" role="none">
                     <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-white hover:text-[#81A1C1]" role="menuitem">
+                        <a href="#" class="block px-4 py-2 text-sm dark:text-[#ECEFF4] text-[#2E3440] dark:hover:text-[#81A1C1] hover:text-[#81A1C1]" role="menuitem">
                             <i class="fa-solid fa-gear"></i>
                             Paramètre
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-white hover:text-[#81A1C1]" role="menuitem">
+                        <a href="#" class="block px-4 py-2 text-sm dark:text-[#ECEFF4] text-[#2E3440] dark:hover:text-[#81A1C1] hover:text-[#81A1C1]" role="menuitem">
                             <i class="fa-solid fa-right-from-bracket"></i>
                             Déconnexion
                         </a>
@@ -83,37 +78,36 @@
 
     <!-- Sidebar -->
     <div class="flex flex-grow">
-        <aside class="flex flex-col w-64 bg-[#2e3440] h-full overflow-auto" id="logo-sidebar">
-            <div class="px-6 py-2 bg-[#202227] shadow">
-                <div class="text-white text-lg font-bold mt-1">Nom du Serveur</div>
-                <h1 class="text-white flex items-center">
+        <aside class="flex flex-col w-64 dark:bg-[#2e3440] bg-[#D8DEE9] h-full overflow-auto sticky top-0" id="logo-sidebar">
+            <div class="px-6 py-2 dark:bg-[#202227] bg-[#B7BFCF] shadow">
+                <div class="dark:text-white text-[#202227] text-lg font-bold mt-1">Nom du Serveur</div>
+                <h1 class="dark:text-white text-[#202227] flex items-center">
                     En ligne
                     <span class="ml-2 text-green-500 mb-1">
                         <i class="fa-sharp fa-solid fa-circle fa-beat fa-xs text-[#A3BE8C]"></i>
                     </span>
                 </h1>
-                <div class=" text-gray-400 mb-2 font-light">Minecraft version : <span class="font-light">1.19.0</span></div>
+                <div class=" text-[#434C5E] mb-2 font-normal">Minecraft version : <span class="font-semibold">1.19.0</span></div>
             </div>
             <ul class="mt-6 overflow-y-auto">
                 <li class="relative px-6 py-3">
-                    <span class="absolute inset-y-0 left-0 w-1 bg-[#81A1C1] rounded-tr-lg rounded-br-lg"
-                        aria-hidden="true"></span>
+                    <!-- <span class="absolute inset-y-0 left-0 w-1 dark dark:bg-[#81A1C1] bg-[#2E3440] rounded-tr-lg rounded-br-lg" aria-hidden="true"></span> -->
                     <a href="#"
-                        class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-[#81A1C1]">
+                        class="inline-flex items-center w-full text-sm font-semibold dark:text-white text-[#434C5E] transition-colors duration-150 dark:hover:text-[#81A1C1] hover:text-[#81A1C1]">
                         <i class="fa-solid fa-house"></i>
                         <span class="ml-4">Accueil</span>
                     </a>
                 </li>
                 <li class="relative px-6 py-3">
                     <a href="#"
-                        class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-[#81A1C1]">
+                        class="inline-flex items-center w-full text-sm font-semibold dark:text-white text-[#434C5E] transition-colors duration-150 dark:hover:text-[#81A1C1] hover:text-[#81A1C1]">
                         <i class="fa-solid fa-server"></i>
                         <span class="ml-4">Mes Serveurs</span>
                     </a>
                 </li>
                 <li class="relative px-6 py-3">
                     <a href="#"
-                        class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-[#81A1C1]">
+                        class="inline-flex items-center w-full text-sm font-semibold dark:text-white text-[#434C5E] transition-colors duration-150 dark:hover:text-[#81A1C1] hover:text-[#81A1C1]">
                         <i class="fa-solid fa-puzzle-piece"></i>
                         <span class="ml-4">Plugins</span>
                     </a>
@@ -121,7 +115,7 @@
 
                 <li class="relative px-6 py-3">
                     <button type="button"
-                        class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-[#81A1C1]"
+                        class="inline-flex items-center w-full text-sm font-semibold dark:text-white text-[#434C5E] transition-colors duration-150 dark:hover:text-[#81A1C1] hover:text-[#81A1C1]"
                         aria-controls="configSubMenu" data-collapse-toggle="configSubMenu">
                         <i class="fa-solid fa-cog"></i>
                         <span class="ml-4">Configuration</span>
@@ -130,21 +124,21 @@
                     <ul id="configSubMenu" class="hidden">
                         <li class="relative px-6 mt-2">
                             <a href="#"
-                                class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-[#81A1C1]">
+                                class="inline-flex items-center w-full text-sm font-semibold dark:text-white text-[#434C5E] transition-colors duration-150 dark:hover:text-[#81A1C1] hover:text-[#81A1C1]">
                                 <i class="fas fa-gears"></i>
                                 <span class="ml-4">Général</span>
                             </a>
                         </li>
                         <li class="relative px-6 mt-2">
                             <a href="#"
-                                class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-[#81A1C1]">
+                                class="inline-flex items-center w-full text-sm font-semibold dark:text-white text-[#434C5E] transition-colors duration-150 dark:hover:text-[#81A1C1] hover:text-[#81A1C1]">
                                 <i class="fas fa-file-arrow-down"></i>
                                 <span class="ml-4">Dépôt Fichiers</span>
                             </a>
                         </li>
                         <li class="relative px-6 mt-2">
                             <a href="#"
-                                class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-[#81A1C1]">
+                                class="inline-flex items-center w-full text-sm font-semibold dark:text-white text-[#434C5E] transition-colors duration-150 dark:hover:text-[#81A1C1] hover:text-[#81A1C1]">
                                 <i class="fas fa-shield-halved"></i>
                                 <span class="ml-4">Paramètres Avancée</span>
                             </a>
@@ -153,7 +147,7 @@
                 </li>
                 <li class="relative px-6 py-3">
                     <button type="button"
-                        class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-[#81A1C1]"
+                        class="inline-flex items-center w-full text-sm font-semibold dark:text-white text-[#434C5E] transition-colors duration-150 dark:hover:text-[#81A1C1] hover:text-[#81A1C1]"
                         data-collapse-toggle="SubMenu">
                         <i class="fa-solid fa-user"></i>
                         <span class="ml-4">Utilisateur</span>
@@ -162,20 +156,20 @@
                     <ul id="SubMenu" class="hidden">
                         <li class="relative px-6 mt-2">
                             <a href="#"
-                                class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-[#81A1C1]">
+                                class="inline-flex items-center w-full text-sm font-semibold dark:text-white text-[#434C5E] transition-colors duration-150 dark:hover:text-[#81A1C1] hover:text-[#81A1C1]">
                                 <i class="fa-sharp fa-solid fa-user-plus"></i>
                                 <span class="ml-4">Sous-utilisateur</span>
                             </a>
                         </li>
                         <li class="relative px-6 mt-2">
                             <a href="#"
-                                class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-[#81A1C1]">
+                                class="inline-flex items-center w-full text-sm font-semibold dark:text-white text-[#434C5E] transition-colors duration-150 dark:hover:text-[#81A1C1] hover:text-[#81A1C1]">
                                 <i class="fa-solid fa-user-group"></i>
                                 <span class="ml-4">Groupe</span>
                             </a>
                         </li>
                         <li class="relative px-6 mt-2">
-                            <a href="#" class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 hover:text-[#81A1C1]">
+                            <a href="#" class="inline-flex items-center w-full text-sm font-semibold dark:text-white text-[#434C5E] transition-colors duration-150 dark:hover:text-[#81A1C1] hover:text-[#81A1C1]">
                                 <i class="fa-solid fa-gears"></i>
                                 <span class="ml-4">Paramètres</span>
                             </a>
@@ -183,61 +177,73 @@
                     </ul>
                 </li>
             </ul>
+            <div class="absolute bottom-0 px-6 py-3 justify-center">
+                <p class="text-sm dark:text-white text-[#434C5E]">
+                    Version 1.0.0  © 2023
+                </p>
+                <div class="flex justify-center mt-1">
+                    <a href="https://github.com/Foufou-exe" target="_blank">
+                        <i class="fab fa-github dark:text-white text-[#434C5E] dark:hover:text-[#81A1C1] mr-2"></i>
+                    </a>
+                    <a href="https://github.com/thorbeorn" target="_blank">
+                        <i class="fab fa-github dark:text-white text-[#434C5E] dark:hover:text-[#81A1C1]"></i>
+                    </a>
+                </div>
+            </div>
         </aside>
 
 
         <!-- Section -->
-        <section class="flex-grow bg-[#3b4252] overflow-auto">
+        <section class="flex-grow dark:bg-[#3b4252] bg-[#ECEFF4] overflow-auto">
             <div class="flex flex-col justify-center items-center">
                 <!-- First Container -->
                 <div class="container my-10">
-                    <h1 class="font-bold text-3xl text-[#ECEFF4] mb-4"
-                        style="font-family: 'Century Gothic', sans-serif;">Nom du Serveur</h1>
+                    <h1 class="font-bold text-3xl dark:text-[#ECEFF4] text-[#434C5E] mb-4" style="font-family: 'Century Gothic', sans-serif;">Nom du Serveur</h1>
                     <div class="container mt-5 mb-5 md:grid md:grid-cols-3 md:gap-2">
 
                         <!-- Console Block and Network Block -->
                         <div class="md:grid md:grid-cols-1 md:col-span-2 flex flex-col">
-                            <div class="bg-[#2e3440] px-4 py-3 rounded md:grid md:grid-cols-2 gap-4 mb-4">
+                            <div class="dark:bg-[#2e3440] bg-[#E5E9F0] px-4 py-3 rounded md:grid md:grid-cols-2 gap-4 mb-4">
                                 <div class="md:flex items-center justify-start ml-5 mt-2">
-                                    <h3 class="text-lg mb-2 font-semibold text-[#4C566A] flex items-center">
+                                    <h3 class="text-lg mb-2 font-semibold dark:text-[#4C566A] text-[#3B4252] flex items-center">
                                         Status du serveur
                                     </h3>
-                                    <span class="text-[#ECEFF4] font-bold ml-10 mb-1">En ligne</span>
+                                    <span class="dark:text-[#ECEFF4] text-[#434C5E] font-bold ml-10 mb-1">En ligne</span>
                                     <i class="fa-solid fa-circle-check text-[#A3BE8C] ml-2 font-medium"></i>
                                 </div>
                                 <div class="md:flex items-center justify-start mt-2">
-                                    <h3 class="text-lg mb-2 font-semibold text-[#4C566A] flex items-center">
+                                    <h3 class="text-lg mb-2 font-semibold dark:text-[#4C566A] text-[#3B4252] flex items-center">
                                         Nombre de joueurs
                                     </h3>
-                                    <p class="text-[#4C566A] font-semibold ml-10 mt-1 mb-2 mr-3"><span class="text-[#ECEFF4] font-bold" id="user-usage">50</span> / 100</p>
-                                    <i class="fas fa-users text-lg text-[#4C566A] mb-1"></i>
+                                    <p class="dark:text-[#4C566A] text-[#3B4252] font-semibold ml-10 mt-1 mb-2 mr-3"><span class="dark:text-[#ECEFF4] text-[#434C5E] font-bold" id="user-usage">50</span> / 100</p>
+                                    <i class="fas fa-users text-lg dark:text-[#4C566A] text-[#434C5E] mb-1"></i>
                                 </div>
                             </div>
                             
-                            <div class="bg-[#2e3440] p-4 rounded flex flex-col mb-4 md:mb-0 flex-grow">
-                                <div class="bg-black text-white p-4 rounded h-[600px] overflow-auto">
+                            <div class="dark:bg-[#2e3440] bg-[#E5E9F0] p-4 rounded flex flex-col mb-4 md:mb-0 flex-grow">
+                                <div class="text-[#3B4252] dark:text-[#ECEFF4] p-4 rounded h-[600px] overflow-auto">
                                     <pre id="console-output">
                                         <!-- La sortie de la console sera ici -->
                                     </pre>
                                 </div>
                                 <hr class="border-[#4C566A] mt-4 mb-2">
                                 <div class="relative flex">
-                                    <i class="fas fa-angle-right text-[#4C566A] absolute mt-2 ml-2 text-xl"></i>
-                                    <input type="text"  class="flex-grow leading-tight focus:outline-none pl-8 mb-1 rounded appearance-none bg-transparent border-none text-[#E5E9F0] text-lg focus:font-semibold" placeholder="Tapez une commande ici...">
-                                    <button class="bg-[#4C566A] hover:bg-[#5E81AC] text-white font-bold py-2 px-8 mr-2 rounded h-full" data-tippy-content="Envoyer">
+                                    <i class="fas fa-angle-right dark:text-[#4C566A] text-[#4C566A] absolute mt-2 ml-2 text-xl"></i>
+                                    <input type="text"  class="flex-grow leading-tight focus:outline-none pl-8 mb-1 rounded appearance-none bg-transparent border-none dark:text-[#E5E9F0] text-[#4C566A] text-lg focus:font-semibold" placeholder="Tapez une commande ici...">
+                                    <button class=" dark:text-[#4C566A] text-[#4C566A] font-bold py-2 px-8 mr-2 rounded h-full" data-tippy-content="Envoyer">
                                         <i class="fas fa-paper-plane"></i>
                                     </button>
-                                    <button class="bg-[#4C566A] hover:bg-[#5E81AC] text-white font-bold py-2 px-8 rounded h-full" data-tippy-content="Nettoyer">
+                                    <button class=" dark:text-[#4C566A] text-[#4C566A] font-bold py-2 px-8 rounded h-full" data-tippy-content="Nettoyer">
                                         <i class="fas fa-trash-can"></i>
                                     </button>
                                 </div>
                             </div>
 
-                            <div class="bg-[#2e3440] mt-2 p-4 rounded flex flex-col flex-shrink">
+                            <div class="dark:bg-[#2e3440] bg-[#E5E9F0] mt-2 p-4 rounded flex flex-col flex-shrink">
                                 <div class="ml-4 flex items-center">
                                     <div class="mt-4">
-                                        <h3 class="text-lg mb-2 font-semibold text-[#4C566A] flex items-center">
-                                            <i class="fab fa-cloudscale text-2xl text-[#4C566A] mr-1"></i>
+                                        <h3 class="text-lg mb-2 font-semibold dark:text-[#4C566A] text-[#434C5E] flex items-center">
+                                            <i class="fab fa-cloudscale text-2xl dark:text-[#4C566A] text-[#434C5E] mr-1"></i>
                                             Network Usage
                                         </h3>
                                     </div>
@@ -276,60 +282,59 @@
                                 </div>
                             </div>
                             <!-- Informations -->
-                            <div class="relative bg-[#2e3440] mt-2 p-5 rounded">
+                            <div class="relative dark:bg-[#2e3440] bg-[#E5E9F0] mt-2 p-5 rounded">
                                 <div class="ml-4 grid grid-cols-2">
 
-                                    <h3 class="text-lg mb-2 font-semibold text-[#4C566A] flex items-center">
-                                        <i class="fas fa-server text-2xl text-[#4C566A] mr-1"></i>
+                                    <h3 class="text-lg mb-2 font-semibold dark:text-[#4C566A] text-[#3B4252] flex items-center">
+                                        <i class="fas fa-server text-2xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
                                         IP Server
                                     </h3>
-                                    <span class="text-[#ECEFF4] font-bold" id="ip-server">192.168.1.1</span>
+                                    <span class="dark:text-[#ECEFF4] text-[#434C5E] font-bold" id="ip-server">192.168.1.1</span>
 
-                                    <h3 class="text-lg mb-2 font-semibold text-[#4C566A] flex items-center">
-                                        <i class="fas fa-globe text-2xl text-[#4C566A] mr-1"></i>
+                                    <h3 class="text-lg mb-2 font-semibold dark:text-[#4C566A] text-[#3B4252] flex items-center">
+                                        <i class="fas fa-globe text-2xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
                                         Server ID
                                     </h3>
-                                    <span class="text-[#ECEFF4] font-bold" id="server-id">123456</span>
+                                    <span class="dark:text-[#ECEFF4] text-[#434C5E] font-bold" id="server-id">123456</span>
 
-                                    <h3 class="text-lg mb-2 font-semibold text-[#4C566A] flex items-center">
-                                        <i class="fas fa-network-wired text-2xl text-[#4C566A] mr-1"></i>
+                                    <h3 class="text-lg mb-2 font-semibold dark:text-[#4C566A] text-[#3B4252] flex items-center">
+                                        <i class="fas fa-network-wired text-2xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
                                         Port Server
                                     </h3>
 
-                                    <span class="text-[#ECEFF4] font-bold" id="port-server">8000</span>
+                                    <span class="dark:text-[#ECEFF4] text-[#434C5E]  font-bold" id="port-server">8000</span>
 
-                                    <h3 class="text-lg mb-2 font-semibold text-[#4C566A] flex items-center">
-                                        <i class="fas fa-key text-2xl text-[#4C566A] mr-1"></i>
+                                    <h3 class="text-lg mb-2 font-semibold dark:text-[#4C566A] text-[#3B4252] flex items-center">
+                                        <i class="fas fa-key text-2xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
                                         Port RCON
                                     </h3>
 
-                                    <span class="text-[#ECEFF4] font-bold" id="port-rcon">25565</span>
+                                    <span class="dark:text-[#ECEFF4] text-[#434C5E]  font-bold" id="port-rcon">25565</span>
                                 </div>
                             </div>
 
                             <!-- Disque Dur -->
-                            <div class="relative bg-[#2e3440] mt-2  pl-4 pt-3 pb-1 rounded">
+                            <div class="relative dark:bg-[#2e3440] bg-[#E5E9F0] mt-2  pl-4 pt-3 pb-1 rounded">
                                 <div class="ml-4 grid grid-cols-2">
-                                    <h3 class="text-lg mb-2 font-semibold text-[#4C566A] flex items-center">
-                                        <i class="fas fa-hdd text-2xl text-[#4C566A] mr-1"></i>
+                                    <h3 class="text-lg mb-2 font-semibold dark:text-[#4C566A] text-[#3B4252] flex items-center">
+                                        <i class="fas fa-hdd text-2xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
                                         Espaces disque
                                     </h3>
-                                    <span class="text-[#ECEFF4] font-bold" id="disk-space">500 GB <a
-                                            class="font-semibold text-[#4C566A]">/ 1To</a></span>
+                                    <span class="dark:text-[#ECEFF4] text-[#434C5E]  font-bold" id="disk-space">500 GB <a class="font-semibold dark:text-[#4C566A] text-[#3B4252]">/ 1To</a></span>
                                 </div>
                             </div>
 
 
 
                             <!-- CPU -->
-                            <div class="relative bg-[#2e3440] mt-2 p-4 rounded">
+                            <div class="relative dark:bg-[#2e3440] bg-[#E5E9F0] mt-2 p-4 rounded">
                                 <div class="ml-4 flex items-center">
                                     <div class="grid grid-cols-2">
-                                        <h3 class="text-lg mb-2 font-semibold text-[#4C566A] flex items-center">
-                                            <i class="fas fa-microchip text-2xl text-[#4C566A] mr-1"></i>
+                                        <h3 class="text-lg mb-2 font-semibold dark:text-[#4C566A] text-[#3B4252] flex items-center">
+                                            <i class="fas fa-microchip text-2xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
                                             CPU
                                         </h3>
-                                        <p class="text-[#4C566A] font-semibold ml-10 mb-2"><span class="text-[#ECEFF4] font-bold" id="cpu-usage">50%</span> / 100%</p>
+                                        <p class="dark:text-[#4C566A] text-[#3B4252] font-semibold ml-10 mb-2"><span class="dark:text-[#ECEFF4] text-[#434C5E]  font-bold" id="cpu-usage">50%</span> / 100%</p>
                                     </div>
                                 </div>
 
@@ -337,21 +342,18 @@
                             </div>
 
                             <!-- RAM -->
-                            <div class="relative bg-[#2e3440] mt-2 p-4 rounded">
+                            <div class="relative dark:bg-[#2e3440] bg-[#E5E9F0] mt-2 p-4 rounded">
                                 <div class="ml-4 flex items-center">
                                     <div class="grid grid-cols-2">
-                                        <h3 class="text-lg mb-2 font-semibold text-[#4C566A] flex items-center">
-                                            <i class="fas fa-memory text-2xl text-[#4C566A] mr-1"></i>
+                                        <h3 class="text-lg mb-2 font-semibold dark:text-[#4C566A] text-[#3B4252] flex items-center">
+                                            <i class="fas fa-memory text-2xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
                                             RAM
                                         </h3>
-                                        <p class="text-[#4C566A] font-semibold ml-10 mb-2"><span
-                                                class="text-[#ECEFF4] font-bold" id="ram-usage">50</span> / X Mio</p>
+                                        <p class="dark:text-[#4C566A] text-[#3B4252] font-semibold ml-10 mb-2"><span class="dark:text-[#ECEFF4] text-[#434C5E]  font-bold" id="ram-usage">50</span> / X Mio</p>
                                     </div>
                                 </div>
-
                                 <canvas id="ram-performance-chart"></canvas>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -359,29 +361,12 @@
         </section>
 
     </div>
-    <!-- JS et autres scripts -->
+    <!-- Appel WEBAPPS et autres scripts -->
     <script src="https://kit.fontawesome.com/06dc38b1da.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    <!-- <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/tippy.js@6"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script> -->
 
-    <!-- Script Import Local -->
-
-    
     <!-- Script local -->
-
     <script type="module" src="public/assets/js/main.bundle.js"></script>
-
-    <!-- <script type="module" src="public/assets/js/animation.js"></script>
-    <script type="module" src="public/assets/js/graphique_cpu.js"></script>
-    <script type="module" src="public/assets/js/graphique_ram.js"></script>
-    <script type="module" src="public/assets/js/graphique_network.js"></script> -->
-
-
 
 </body>
 
