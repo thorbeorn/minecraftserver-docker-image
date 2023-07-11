@@ -4,16 +4,18 @@ services:
     build: ./build/web
     restart: always
     ports:
-      - 9000:80
+      - 8080:80
+      - 25566:25565
     depends_on:
       - mariadb
     volumes:
       - ./app:/var/www/html
       - ./lib:/var/www/html/lib
+      - /var/run/docker.sock:/var/run/docker.sock
     entrypoint: /bin/bash -c "service apache2 start && cd lib/ && composer install && cd .. && service apache2 stop && /usr/sbin/apache2ctl -D FOREGROUND"
 
   mariadb:
-    build: ./build/bdd
+    image: mariadb:latest
     restart: always
     volumes:
         - ./mariadb-data:/var/lib/mysql
