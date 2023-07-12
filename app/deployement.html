@@ -78,7 +78,7 @@
 
     <!-- Sidebar -->
     <div class="flex flex-grow">
-        <aside class="flex flex-col w-64 dark:bg-[#2e3440] bg-[#D8DEE9] h-full overflow-auto" id="logo-sidebar">
+        <aside class="flex flex-col w-72 dark:bg-[#2e3440] bg-[#D8DEE9] h-full overflow-auto sticky top-0" id="logo-sidebar">
             <div class="px-6 py-2 dark:bg-[#202227] bg-[#B7BFCF] shadow">
                 <div class="dark:text-white text-[#202227] text-lg font-bold mt-1">Nom du Serveur</div>
                 <h1 class="dark:text-white text-[#202227] flex items-center">
@@ -177,16 +177,28 @@
                     </ul>
                 </li>
             </ul>
+            <div class="absolute bottom-0 px-6 py-3 justify-center">
+                <p class="text-sm dark:text-white text-[#434C5E]">
+                   MCServerManager Version 1.0.0  © 2023
+                </p>
+                <div class="flex justify-center mt-1">
+                    <a href="https://github.com/Foufou-exe" target="_blank">
+                        <i class="fab fa-github dark:text-white text-[#434C5E] dark:hover:text-[#81A1C1] mr-2"></i>
+                    </a>
+                    <a href="https://github.com/thorbeorn" target="_blank">
+                        <i class="fab fa-github dark:text-white text-[#434C5E] dark:hover:text-[#81A1C1]"></i>
+                    </a>
+                </div>
+            </div>
         </aside>
 
 
         <!-- Section -->
         <section class="flex-grow dark:bg-[#3b4252] bg-[#ECEFF4] overflow-auto">
-            <div class="flex flex-col justify-center items-center">
+            <div class="flex flex-col justify-center items-center mx-10">
                 <h1 class="font-bold text-3xl dark:text-[#ECEFF4] text-[#434C5E] mb-4 my-10" style="font-family: 'Century Gothic', sans-serif;">Choix de la version</h1>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 h-full">
-
-                    <!-- Card choose type server -->
+                    
                     <!-- Card choose type server -->
                     <div class="rounded px-10 py-3 mb-4 dark:bg-[#2e3440] bg-[#D8DEE9] col-span-2 flex-shrink-0">
                         <h2 class="text-lg font-semibold dark:text-[#ECEFF4] text-[#434C5E] mb-2 mt-5">Choisir le type de serveur Minecraft </h2>
@@ -203,9 +215,62 @@
                     <!-- Card example -->
                     <div class="rounded-lg overflow-hidden shadow-lg dark:bg-[#2e3440] bg-[#D8DEEE9] flex">
                         <div class="w-1/2">
-                            <img src="public/assets/img/minecraft/word/world2.png" alt="Server Image" class="object-cover w-full h-full">
+                            <img src="public/assets/img/minecraft/word/world3.png" alt="world" class="object-cover h-full">
                         </div>
-                        <!-- <p class="dark:text-[#ECEFF4] text-[#434C5E] mb-4 font-semibold">Image du serveur</p> -->
+                        <div class="w-1/2 ml-5 mr-5 p-5 flex flex-col justify-between">
+                            <h3 class="text-lg font-extrabold dark:text-[#ECEFF4] text-[#434C5E] mb-1">Vanilla</h3>
+                            <p class="dark:text-[#ECEFF4] text-[#434C5E] mb-4 font-semibold">1.19.1</p>
+                            <button class="dark:text-[#434C5E] text-[#434C5E] font-bold hover:text-[#81A1C1]">
+                                <i class="fa-solid fa-download mr-3"></i>Installer
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Card example -->
+                    <div class="rounded-lg overflow-hidden shadow-lg dark:bg-[#2e3440] bg-[#D8DEEE9] flex">
+                        <div class="w-1/2">
+                            <img src="public/assets/img/minecraft/word/world3.png" alt="world" class="object-cover h-full">
+                        </div>
+                        <div class="w-1/2 ml-5 mr-5 p-5 flex flex-col justify-between">
+                            <h3 class="text-lg font-extrabold dark:text-[#ECEFF4] text-[#434C5E] mb-1">Vanilla</h3>
+                            <p class="dark:text-[#ECEFF4] text-[#434C5E] mb-4 font-semibold">1.19.1</p>
+                            <button class="dark:text-[#434C5E] text-[#434C5E] font-bold hover:text-[#81A1C1]">
+                                <i class="fa-solid fa-download mr-3"></i>Installer
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Card example -->
+                    <div class="rounded-lg overflow-hidden shadow-lg dark:bg-[#2e3440] bg-[#D8DEEE9] flex">
+                        <div class="w-1/2">
+                            <img src="public/assets/img/minecraft/word/world3.png" alt="world" class="object-cover h-full">
+                        </div>
+                        <div class="w-1/2 ml-5 mr-5 p-5 flex flex-col justify-between">
+                            <h3 class="text-lg font-extrabold dark:text-[#ECEFF4] text-[#434C5E] mb-1">Vanilla</h3>
+                            <p class="dark:text-[#ECEFF4] text-[#434C5E] mb-4 font-semibold">1.19.1</p>
+                            <button class="dark:text-[#434C5E] text-[#434C5E] font-bold hover:text-[#81A1C1]">
+                                <i class="fa-solid fa-download mr-3"></i>Installer
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Card example -->
+                    <div class="rounded-lg overflow-hidden shadow-lg dark:bg-[#2e3440] bg-[#D8DEEE9] flex">
+                        <div class="w-1/2">
+                            <img src="public/assets/img/minecraft/word/world3.png" alt="world" class="object-cover h-full">
+                        </div>
+                        <div class="w-1/2 ml-5 mr-5 p-5 flex flex-col justify-between">
+                            <h3 class="text-lg font-extrabold dark:text-[#ECEFF4] text-[#434C5E] mb-1">Vanilla</h3>
+                            <p class="dark:text-[#ECEFF4] text-[#434C5E] mb-4 font-semibold">1.19.1</p>
+                            <button class="dark:text-[#434C5E] text-[#434C5E] font-bold hover:text-[#81A1C1]">
+                                <i class="fa-solid fa-download mr-3"></i>Installer
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Card example -->
+                    <div class="rounded-lg overflow-hidden shadow-lg dark:bg-[#2e3440] bg-[#D8DEEE9] flex">
+                        <div class="w-1/2">
+                            <img src="public/assets/img/minecraft/word/world3.png" alt="world" class="object-cover h-full">
+                        </div>
                         <div class="w-1/2 ml-5 mr-5 p-5 flex flex-col justify-between">
                             <h3 class="text-lg font-extrabold dark:text-[#ECEFF4] text-[#434C5E] mb-1">Vanilla</h3>
                             <p class="dark:text-[#ECEFF4] text-[#434C5E] mb-4 font-semibold">1.19.1</p>
