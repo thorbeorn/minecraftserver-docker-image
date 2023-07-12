@@ -12,7 +12,7 @@
     <link rel="shortcut icon" type="image/png" href="<?= Chemins::IMAGES . 'icon_logo.png' ?>"/>
 
     <!-- Meta Tags Generated with https://metatags.io -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="public/assets/css/output.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/06dc38b1da.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
     <style>
@@ -29,3 +29,9 @@
         }
     </style>
 </head>
+
+<body class="gradient-background flex flex-col items-center justify-center h-screen">
+    <div class="shadow-2xl rounded-lg overflow-hidden bg-white shadow-[#34495E]/100">
+
+
+

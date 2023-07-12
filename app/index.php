@@ -40,4 +40,4 @@
             break;
     }
 
-    require_once 'views/permanents/bodyend_vue.inc.php';
+    require_once Chemins::VUES_PERMENENTES . 'bodyend_vue.inc.php';

@@ -15,6 +15,6 @@ class Chemins {
    
    // Autres chemins du site
    const CONFIGS = "configs/";
-   const LIBS = "libs/";
+   const LIBS = "lib/";
 }
 ?>

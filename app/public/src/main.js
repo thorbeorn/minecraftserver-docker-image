@@ -61,7 +61,6 @@ const toggleDarkMode = () => {
 };
 
 document.getElementById('modeToggle').addEventListener('click', () => {
-    console.log("Mode toggle clicked");
     toggleDarkMode();
 });
 

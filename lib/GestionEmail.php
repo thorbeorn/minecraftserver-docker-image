@@ -3,11 +3,11 @@
     //Import PHPMailer classes into the global namespace
     //These must be at the top of your script, not inside a function
     use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
 
     //Load Composer's autoloader
     require_once 'vendor/autoload.php';
+    require_once Chemins::LIBS . 'ParametreServer.php';
 /**
  * Classe utilisant PHPMailer ayant pour but de gérer l'envoi de mail.
  * @package https://github.com/PHPMailer/PHPMailer
@@ -20,12 +20,13 @@ class GestionEmail {
      * @param string $subject Sujet de l'email
      * @param string $recipient Destinataire de l'e-mail
      * @param string $key Clé de vérification
-     */
+    */
+
+
     public static function sendMailVerify($subject, $recipient, $key) {
         try {
             $mail = new PHPMailer(true);
             $mail->CharSet = "UTF-8";
-            $mail = new PHPMailer;
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com'; // SMTP server (replace with your SMTP server)
             $mail->SMTPAuth = true;
@@ -57,7 +58,7 @@ class GestionEmail {
                                     <p class="lead">Bienvenue !</p>
                                     <p class="lead">Merci de créer un compte.</p>
                                     <p class="lead">Cliquez sur le bouton ci-dessous pour vérifier votre compte :</p>
-                                    <a href="http://localhost:9000/index.php?page=register-confirm&key=' . $key . '" class="btn btn-primary btn-block">Vérifier le compte</a>
+                                    <a href="http://'. ParametreServer::getIp() .':'. ParametreServer::getPort() .'/index.php?page=register-confirm&key=' . $key . '" class="btn btn-primary btn-block">Vérifier le compte</a>
                                     <p class="text-muted mt-5">Ce lien est valable pour une seule utilisation. Expire dans 24 heures.</p>
                                     <p class="text-muted">Si vous n avez pas créé de compte, veuillez ignorer ce message ou contacter notre service clientèle.</p>
                                 </div>
@@ -87,7 +88,6 @@ class GestionEmail {
         try {
             $mail = new PHPMailer(true);
             $mail->CharSet = "UTF-8";
-            $mail = new PHPMailer;
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com'; // SMTP server (replace with your SMTP server)
             $mail->SMTPAuth = true;
@@ -126,7 +126,7 @@ class GestionEmail {
             
                                     <p class="lead">Réinitialisation du mot de passe</p>
             
-                                    <a href="http://localhost:9000/index.php?page=reset-password-confirm&key='. $key .'" class="btn btn-primary btn-block">Réinitialiser le mot de passe</a>
+                                    <a href="http://'. ParametreServer::getIp() .':'. ParametreServer::getPort() .'/index.php?page=reset-password-confirm&key='. $key .'" class="btn btn-primary btn-block">Réinitialiser le mot de passe</a>
             
                                     <p class="text-muted mt-5">Ce lien est valable pour une seule utilisation. Expire dans 2 heures.</p>
                                     <p class="text-muted">Si vous n avez pas demandé la réinitialisation de votre mot de passe, veuillez ignorer ce message ou contacter notre service clientèle.</p>
