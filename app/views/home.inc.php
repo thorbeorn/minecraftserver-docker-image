@@ -1,3 +1,12 @@
+<?php
+    // On récupere les informations de l'utilisateur dans la base de données
+    $user = $auth->user();
+    $server = $user->server()->first();
+
+?>
+
+
+
 <!-- Section -->
 <section class="flex-grow dark:bg-[#3b4252] bg-[#ECEFF4] overflow-auto">
     <div class="flex flex-col justify-center items-center mx-10">
