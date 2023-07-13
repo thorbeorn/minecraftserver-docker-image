@@ -1,7 +1,5 @@
 <?php
     // On récupere les informations de l'utilisateur dans la base de données
-    $user = $auth->user();
-    $server = $user->server()->first();
 
 ?>
 
@@ -95,10 +93,10 @@
                     </div>
                     <!-- Informations -->
                     <div class="relative dark:bg-[#2e3440] bg-[#E5E9F0] mt-2 p-5 rounded">
-                        <div class="ml-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+                        <div class="ml-4 mr-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
                             <div class="flex items-center mb-2 md:mb-0">
-                                <i class="fas fa-server text-2xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
-                                <h3 class="text-lg font-semibold dark:text-[#4C566A] text-[#3B4252]">
+                                <i class="fas fa-server text-xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
+                                <h3 class="text-base font-semibold dark:text-[#4C566A] text-[#3B4252]">
                                     IP
                                 </h3>
                             </div>
@@ -106,9 +104,9 @@
                                 192.168.1.1
                             </div>
                     
-                            <div class="flex items-center ml-2 mb-2 md:mb-0">
-                                <i class="fas fa-globe text-2xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
-                                <h3 class="text-lg font-semibold dark:text-[#4C566A] text-[#3B4252]">
+                            <div class="flex items-center ml-4 mb-2 md:mb-0">
+                                <i class="fas fa-globe text-xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
+                                <h3 class="text-base font-semibold dark:text-[#4C566A] text-[#3B4252]">
                                     ID
                                 </h3>
                             </div>
@@ -117,8 +115,8 @@
                             </div>
                     
                             <div class="flex items-center mb-2 md:mb-0">
-                                <i class="fas fa-network-wired text-2xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
-                                <h3 class="text-lg font-semibold dark:text-[#4C566A] text-[#3B4252]">
+                                <i class="fas fa-network-wired text-xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
+                                <h3 class="text-base font-semibold dark:text-[#4C566A] text-[#3B4252]">
                                     Port
                                 </h3>
                             </div>
@@ -126,9 +124,9 @@
                                 8000
                             </div>
                     
-                            <div class="flex items-center ml-2 mb-2 md:mb-0">
-                                <i class="fas fa-key text-2xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
-                                <h3 class="text-lg font-semibold dark:text-[#4C566A] text-[#3B4252]">
+                            <div class="flex items-center ml-4 mb-2 md:mb-0 mr-6">
+                                <i class="fas fa-key text-xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
+                                <h3 class="text-base font-semibold dark:text-[#4C566A] text-[#3B4252]">
                                     RCON
                                 </h3>
                             </div>
@@ -143,7 +141,7 @@
                         <div class="ml-4 mb-3 grid grid-cols-1 md:grid-cols-2">
                             <div class="flex items-center mb-2 md:mb-0">
                                 <i class="fas fa-hdd text-2xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
-                                <h3 class="text-lg font-semibold dark:text-[#4C566A] text-[#3B4252]">
+                                <h3 class="text-base font-semibold dark:text-[#4C566A] text-[#3B4252]">
                                     Espaces disque
                                 </h3>
                             </div>
@@ -159,7 +157,7 @@
                     <div class="relative dark:bg-[#2e3440] bg-[#E5E9F0] mt-2 p-4 rounded">
                         <div class="ml-4 flex items-center">
                             <div class="grid grid-cols-1 sm:grid-cols-2">
-                                <h3 class="text-lg mb-2 font-semibold dark:text-[#4C566A] text-[#3B4252] flex items-center">
+                                <h3 class="text-base mb-2 font-semibold dark:text-[#4C566A] text-[#3B4252] flex items-center">
                                     <i class="fas fa-microchip text-2xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
                                     CPU
                                 </h3>
@@ -173,7 +171,7 @@
                     <div class="relative dark:bg-[#2e3440] bg-[#E5E9F0] mt-2 p-4 rounded">
                         <div class="ml-4 flex items-center">
                             <div class="grid grid-cols-1 sm:grid-cols-2">
-                                <h3 class="text-lg mb-2 font-semibold dark:text-[#4C566A] text-[#3B4252] flex items-center">
+                                <h3 class="text-base mb-2 font-semibold dark:text-[#4C566A] text-[#3B4252] flex items-center">
                                     <i class="fas fa-memory text-2xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
                                     RAM
                                 </h3>

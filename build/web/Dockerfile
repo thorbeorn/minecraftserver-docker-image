@@ -2,7 +2,7 @@ FROM php:8.2-apache
 
 # Update and Dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends locales apt-utils libicu-dev g++ libpng-dev libxml2-dev libzip-dev libonig-dev libxslt-dev zip unzip curl wget vim nano npm iproute2 traceroute iputils-ping apt-utils ;
+    && apt-get install -y --no-install-recommends locales apt-utils libicu-dev g++ libpng-dev libxml2-dev libzip-dev libonig-dev libxslt-dev zip unzip curl wget vim nano npm iproute2 traceroute iputils-ping apt-utils sudo;
 
 # Install NPM
 RUN npm install npm@latest -g && \
