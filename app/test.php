@@ -1,38 +1,22 @@
 <?php
-   $json = shell_exec('sudo docker stats mcservermanager-php-1 --no-stream --format "{{ json . }}" 2>&1');
 
-   if ($json === null) {
-       return "Erreur : Aucune donnée retournée par la commande shell.";
-   } else {
-       $data = json_decode($json);
+use GestionsServer\GestionServer;
 
-       if ($data === null) {
-           return "Erreur : Le JSON n'a pas pu être décodé.";
-       } else {
-           $result = "";
+    require_once 'configs/routes.class.php';
+    require_once Chemins::CONTROLEURS . 'GestionServer.php';
 
-           $blockIO = explode(" / ", $data->BlockIO);
-           $result .= "BlockIO: " . rtrim($blockIO[0], "MB") . "  " . rtrim($blockIO[1],"MB") . "<br>";
-
-           $result .= "CPUPerc: " . rtrim($data->CPUPerc, "%") . "<br>";
-           $result .= "Container: " . $data->Container . "<br>";
-           $result .= "ID: " . $data->ID . "<br>";
-
-           $memPerc = rtrim($data->MemPerc, "%");
-           $result .= "MemPerc: " . $memPerc . "<br>";
-
-           $memUsage = explode(" / ", $data->MemUsage);
-           $result .= "MemUsage: " . rtrim($memUsage[0],"MiB") . "  " . rtrim($memUsage[1],"GiB") . "<br>";
-
-           $result .= "Name: " . $data->Name . "<br>";
-
-           $netIO = explode(" / ", $data->NetIO);
-           $result .= "NetIO: " . rtrim($netIO[0],"MB") . "  " . rtrim($netIO[1],"MB") . "<br>";
-
-           $result .= "PIDs: " . $data->PIDs . "<br>";
-
-           echo $result;
-       }
-   }
-
+    $gestionServer = new GestionServer();
+    echo 'Cpu utilisation : ' . $gestionServer->getDockerStatsCpu() . '% <br>';
+    echo 'Ram utilisation : ' . $gestionServer->getDockerStatsRamPourcentage() . '  /  ' . $gestionServer->getDockerStatsRam() . ' MiB ' . $gestionServer->getDockerStatsRamLimit() . 'GiB <br>';
+    echo 'Id du container : ' . $gestionServer->getDockerStatsId() . '<br>';
+    echo 'Name du container : ' . $gestionServer->getDockerStatsNameServer() . '<br>';
+    echo 'Network Entrer du container : ' . $gestionServer->getDockerStatsNetworkEnter() . '<br>';
+    echo 'Network Sortie du container : ' . $gestionServer->getDockerStatsNetworkOut() . '<br>';
+    echo 'Disk utilisé du container : ' . $gestionServer->getDockerStatsDiskUsed() . '<br>';
+    echo 'Disk limite du container : ' . $gestionServer->getDockerStatsDiskLimit() . '<br>';
+    echo 'Status du container : ' . $gestionServer->getDockerStatus() . '<br>';
+    echo 'Port Query du container : ' . $gestionServer->getDockerPortQuery() . '<br>';
+    echo 'Port Rcon du container : ' . $gestionServer->getDockerPortRcon() . '<br>';
 ?>
+
+
