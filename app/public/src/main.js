@@ -9,6 +9,15 @@ import $ from 'jquery';
 // Tooltip initialization
 tippy('[data-tippy-content]');
 
+// * Ficheir transfere * //
+
+$(document).ready(function() {
+    $('#elfinder').elfinder({
+        url : './elFinder/php/connector.minimal.php'  // connecteur vers le serveur distant
+    });
+});
+
+
 
 // * Sidebar * //
 

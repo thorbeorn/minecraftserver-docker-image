@@ -9,6 +9,8 @@ class Chemins {
    const VUES_PERMENENTES= "views/permanents/";
 
    const CONTROLEURS = "controllers/";
+
+   const JS_BUILD = "public/src/";
    
    // Chemins à l'intérieur du dossier PUBLIC
    const IMAGES = "public/assets/img/";
