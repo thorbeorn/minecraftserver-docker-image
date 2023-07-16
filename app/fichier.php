@@ -200,10 +200,38 @@
 
         <!-- Section -->
         <section class="flex-grow dark:bg-[#3b4252] bg-[#ECEFF4] overflow-auto">
-            <div class="flex flex-col justify-center items-center mx-10">
-                <div id="elfinder">
-                    <iframe src="public/src/elfinder/elfinder.src.html" width="100%" height="100%" frameborder="0"></iframe>
+            <div class="flex flex-col justify-center items-center mx-10 my-10">
+                <div class="my-6">
+                <div class="text-lg font-bold">Gestionnaire de fichiers</div>
+                <div class="text-gray-500">Chemin actuel: /chemin/par/defaut</div>
+            </div>
+
+            <div class="flex flex-col w-full">
+                <div class="overflow-x-auto">
+                    <table class="w-full whitespace-nowrap">
+                        <thead>
+                            <tr class="h-16 w-full text-sm leading-none text-gray-600">
+                                <th class="font-normal text-left pl-4">Nom</th>
+                                <th class="font-normal text-left pl-12">Type</th>
+                                <th class="font-normal text-left pl-20">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="w-full">
+                            <!-- La liste des fichiers sera ici. -->
+                        </tbody>
+                    </table>
                 </div>
+
+                <form class="flex mt-6">
+                    <input type="text" class="flex-grow border-2 border-gray-300 rounded-l-lg p-4" placeholder="Nom du fichier/dossier à créer">
+                    <button type="submit" class="btn btn-primary rounded-r-lg">Créer</button>
+                </form>
+
+                <form class="flex mt-4">
+                    <input type="file" class="hidden" id="fileUploadInput">
+                    <label for="fileUploadInput" class="btn btn-secondary flex-grow">Glisser ou cliquer pour déposer des fichiers</label>
+                </form>
+            </div>
             </div>
         </section>
 

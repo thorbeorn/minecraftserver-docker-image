@@ -2,21 +2,28 @@
 
 class Chemins {
     
-   // Chemins à l'intérieur du dossier APPLICATION
-   const MODELES = "models/";
+
+   // * ROUTE du dossier MODELS * //   
+   const MODELS = "models/";
    
+   // * ROUTE des fichiers VUES ET VUE PERMENENTES  * //   
    const VUES = "views/";
    const VUES_PERMENENTES= "views/permanents/";
 
+   // * ROUTE du dossier CONTROLLERS * //
    const CONTROLEURS = "controllers/";
 
+   // * ROUTE des fichiers Javascript * //
    const JS_BUILD = "public/src/";
    
-   // Chemins à l'intérieur du dossier PUBLIC
+   // * ROUTE des fichiers images * //
    const IMAGES = "public/assets/img/";
    
-   // Autres chemins du site
+   // * ROUTE du dossier CONFIGURATION * //
    const CONFIGS = "configs/";
+
+   // * ROUTE des librairies externes * //
    const LIBS = "lib/";
+   const LIBS_QUERY_MC = "lib/vendor/xpaw/php-minecraft-query/";
 }
 ?>
