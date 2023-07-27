@@ -1,17 +1,17 @@
 <?php 
-   $container_id = 'test';
-   ob_start();
-   $handle = popen("sudo docker logs -f $container_id 2>&1", 'r');
-   
-   while(($buffer = fgets($handle)) !== false) {
-       echo str_pad($buffer . "<br>", 4096); 
-   
-       if (ob_get_length()) {
-           @ob_flush();
-           @flush();
-           ob_end_flush();
-       }
-      ob_start();
-   }
-   
-   pclose($handle);
+    require_once 'configs/routes.class.php';
+    require_once Chemins::CONTROLEURS . 'QueryMinecraftController.php';
+
+    $data = new QueryMinecraftController();
+    $info = $data->displayInfo();
+
+    echo $info['HostName'] . '<br>';
+    echo $info['GameType']. '<br>';
+    echo $info['Map']. '<br>';
+    echo $info['Players']. '<br>';
+    echo $info['MaxPlayers']. '<br>';
+    echo $info['HostPort']. '<br>';
+    echo $info['HostIp']. '<br>';
+    echo $info['Version']. '<br>';
+    echo $info  ['Plugins']. '<br>';
+    

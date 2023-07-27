@@ -1,3 +1,19 @@
+<?php
+    
+    require_once Chemins::CONTROLEURS . 'UserController.php';
+
+    $pdoInstance = new ModelsPDO();
+    $userController = new UserController($pdoInstance);
+
+    if (isset($_SESSION['user'])) {
+        $pseudo = $_SESSION['user'];
+        $userData = $userController->getUserData($pseudo);
+    } else {
+        header('Location: index.php');
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -44,7 +60,7 @@
                 <button type="button"
                     class="flex text-sm dark:bg-[#2E3440] bg-[#D8DEE9] rounded-full ring-[#202227] ring-4 m-4 dark:focus:ring-[#81A1C1] focus:ring-[#3B4252]" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                     <span class="sr-only">Open user menu</span>
-                    <img class="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                    <img class="w-10 h-10 rounded-full" src="<?= $userData['image'] ?>" alt="user photo">
                 </button>
             </div>
 
@@ -52,10 +68,10 @@
                 id="dropdown-user">
                 <div class="px-4 py-3" role="none">
                     <p class="text-sm dark:text-[#D8DEE9] text-[#434C5E]" role="none">
-                        Nom
+                        <?= $userData['pseudo'] ?>
                     </p>
                     <p class="text-sm font-medium truncate dark:text-[#ECEFF4] text-[#2E3440]" role="none">
-                        Email
+                        <?= $userData['email'] ?>
                     </p>
                 </div>
                 <ul class="py-1" role="none">

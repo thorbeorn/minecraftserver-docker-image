@@ -1,6 +1,4 @@
 <?php 
-
-    require_once 'configs/routes.class.php';
     require_once Chemins::MODELS . 'QueryMinecraft.php';
 
     class QueryMinecraftController
@@ -15,9 +13,15 @@
         public function displayInfo()
         {
             $info = $this->model->getInfo();
-            $players = $this->model->getPlayers();
-
             return $info;
-            return $players;
+
+        }
+
+        public function displayPlayers()
+        {
+            $players = $this->model->getPlayers();
+            foreach ($players as $player) {
+                echo $player . '<br>';
+            }
         }
     }

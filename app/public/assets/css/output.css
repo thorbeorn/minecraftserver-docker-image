@@ -1489,6 +1489,10 @@ video {
   padding-left: 2rem;
 }
 
+.pr-10 {
+  padding-right: 2.5rem;
+}
+
 .pr-3 {
   padding-right: 0.75rem;
 }
@@ -1615,6 +1619,11 @@ video {
 .text-\[\#A3BE8C\] {
   --tw-text-opacity: 1;
   color: rgb(163 190 140 / var(--tw-text-opacity));
+}
+
+.text-\[\#BF616A\] {
+  --tw-text-opacity: 1;
+  color: rgb(191 97 106 / var(--tw-text-opacity));
 }
 
 .text-black {

@@ -1,16 +1,34 @@
 <?php
-    // On récupere les informations de l'utilisateur dans la base de données
+    require_once 'configs/routes.class.php';
+    require_once Chemins::CONTROLEURS . 'QueryMinecraftController.php';
+    require_once Chemins::CONTROLEURS . 'InfoServerController.php';
+
+    // Donnes du serveur via Query
+    $data = new QueryMinecraftController();
+    $info = $data->displayInfo();
+
+    // Donnes du serveur via Docker
+    $docker = new InfoServerMinecraftController();
+    $CPU = $docker->getCpuUsage();
+    $RAM = $docker->getRamUsage();
+    $RAMLimit = $docker->getRamLimit();
+    $ID = $docker->getContainerId();
+    $Name = $docker->getContainerName();
+    $Status = $docker->getStatus();
+    $Ip = $docker->getIp();
+    $PortQuery = $docker->getPortQuery();
+    $PortRcon = $docker->getPortRcon();
+    $DiskLimit = $docker->getDiskLimit();
+    $DiskUsed = $docker->getDiskUsed();
 
 ?>
-
-
 
 <!-- Section -->
 <section class="flex-grow dark:bg-[#3b4252] bg-[#ECEFF4] overflow-auto">
     <div class="flex flex-col justify-center items-center mx-10">
         <!-- First Container -->
         <div class="container my-10">
-            <h1 class="font-bold text-3xl dark:text-[#ECEFF4] text-[#434C5E] mb-4" style="font-family: 'Century Gothic', sans-serif;">Nom du Serveur</h1>
+            <h1 class="font-bold text-3xl dark:text-[#ECEFF4] text-[#434C5E] mb-4" style="font-family: 'Century Gothic', sans-serif;"><?= $Name ?></h1>
             <div class="container mt-5 mb-5 md:grid md:grid-cols-3 md:gap-2">
 
                 <!-- Console Block and Network Block -->
@@ -20,14 +38,39 @@
                             <h3 class="text-lg mb-2 font-semibold dark:text-[#4C566A] text-[#3B4252] flex items-center">
                                 Status du serveur
                             </h3>
-                            <span class="dark:text-[#ECEFF4] text-[#434C5E] font-bold ml-10 mb-1">En ligne</span>
-                            <i class="fa-solid fa-circle-check text-[#A3BE8C] ml-2 font-medium"></i>
+                            <? if (trim(strtolower($Status)) === 'running') : ?>
+                                <span class="dark:text-[#ECEFF4] text-[#434C5E] font-bold ml-10 mb-1">
+                                    En ligne
+                                </span>
+                                <i class="fa-solid fa-circle-check text-[#A3BE8C] ml-2 font-medium"></i>
+                            <? elseif (trim(strtolower($Status)) === 'exited') : ?>
+                                <span class="dark:text-[#ECEFF4] text-[#434C5E] font-bold ml-10 mb-1">
+                                    Hors ligne
+                                </span>
+                                <i class="fa-solid fa-circle-check ml-2 font-medium" style="color: #bf616a;"></i>
+                            
+                            <? elseif (trim(strtolower($Status)) === 'paused') : ?>
+                                <span class="dark:text-[#ECEFF4] text-[#434C5E] font-bold ml-10 mb-1">
+                                    En attente
+                                </span>
+                                <i class="fa-solid fa-circle-check ml-2 font-medium" style="color: #EBCB8B;"></i>
+                            <? else : ?>
+                                <span class="dark:text-[#ECEFF4] text-[#434C5E] font-bold ml-10 mb-1">
+                                    Inconnu
+                                </span>
+                                <i class="fa-solid fa-circle-check ml-2 font-medium" style="color: #D8DEE9;"></i>
+                            <? endif; ?>
                         </div>
                         <div class="md:flex items-center justify-start mt-2">
                             <h3 class="text-lg mb-2 font-semibold dark:text-[#4C566A] text-[#3B4252] flex items-center">
                                 Nombre de joueurs
                             </h3>
-                            <p class="dark:text-[#4C566A] text-[#3B4252] font-semibold ml-10 mt-1 mb-2 mr-3"><span class="dark:text-[#ECEFF4] text-[#434C5E] font-bold" id="user-usage">50</span> / 100</p>
+                            <p class="dark:text-[#4C566A] text-[#3B4252] font-semibold ml-10 mt-1 mb-2 mr-3">
+                                <span class="dark:text-[#ECEFF4] text-[#434C5E] font-bold" id="user-usage">
+                                    <?= $info['Players'] ?: '-'; ?>
+                                </span> 
+                                / <?= $info['MaxPlayers'] ?: '-'; ?>
+                            </p>
                             <i class="fas fa-users text-lg dark:text-[#4C566A] text-[#434C5E] mb-1"></i>
                         </div>
                     </div>
@@ -55,7 +98,7 @@
                         </div>
                     </div>
                     
-                    <div class="dark:bg-[#2e3440] bg-[#E5E9F0] mt-2 p-4 rounded flex flex-col flex-shrink">
+                    <div class="dark:bg-[#2e3440] bg-[#E5E9F0] mt-2 p-4 mb-4 rounded flex flex-col flex-shrink">
                         <div class="ml-4 flex items-center">
                             <div class="mt-4">
                                 <h3 class="text-lg mb-2 font-semibold dark:text-[#4C566A] text-[#434C5E] flex items-center">
@@ -92,8 +135,8 @@
                         </div>
                     </div>
                     <!-- Informations -->
-                    <div class="relative dark:bg-[#2e3440] bg-[#E5E9F0] mt-2 p-5 rounded">
-                        <div class="ml-4 mr-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+                    <div class="relative dark:bg-[#2e3440] bg-[#E5E9F0] mt-2 p-5 pr-10 rounded">
+                        <div class="ml-4 mr-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
                             <div class="flex items-center mb-2 md:mb-0">
                                 <i class="fas fa-server text-xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
                                 <h3 class="text-base font-semibold dark:text-[#4C566A] text-[#3B4252]">
@@ -101,7 +144,7 @@
                                 </h3>
                             </div>
                             <div class="dark:text-[#ECEFF4] text-[#434C5E] font-bold">
-                                192.168.1.1
+                                <?= $Ip ?>
                             </div>
                     
                             <div class="flex items-center ml-4 mb-2 md:mb-0">
@@ -111,7 +154,7 @@
                                 </h3>
                             </div>
                             <div class="dark:text-[#ECEFF4] text-[#434C5E] font-bold">
-                                123456
+                                <?= $ID ?>
                             </div>
                     
                             <div class="flex items-center mb-2 md:mb-0">
@@ -121,17 +164,17 @@
                                 </h3>
                             </div>
                             <div class="dark:text-[#ECEFF4] text-[#434C5E] font-bold">
-                                8000
+                                <?= $PortQuery ?>
                             </div>
                     
-                            <div class="flex items-center ml-4 mb-2 md:mb-0 mr-6">
+                            <div class="flex items-center ml-4 mb-2 md:mb-0 mr-10">
                                 <i class="fas fa-key text-xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
                                 <h3 class="text-base font-semibold dark:text-[#4C566A] text-[#3B4252]">
                                     RCON
                                 </h3>
                             </div>
                             <div class="dark:text-[#ECEFF4] text-[#434C5E] font-bold">
-                                25565
+                                <?= $PortRcon ?>
                             </div>
                         </div>
                     </div>
@@ -146,7 +189,7 @@
                                 </h3>
                             </div>
                             <div>
-                                <span class="dark:text-[#ECEFF4] text-[#434C5E] font-bold" id="disk-space">500 GB <a class="font-semibold dark:text-[#4C566A] text-[#3B4252]">/ 1To</a></span>
+                                <span class="dark:text-[#ECEFF4] text-[#434C5E] font-bold" id="disk-space"><?= $DiskUsed ?> Go <a class="font-semibold dark:text-[#4C566A] text-[#3B4252]">/ <?= $DiskLimit ?> Go</a></span>
                             </div>
                         </div>
                     </div>
@@ -161,7 +204,7 @@
                                     <i class="fas fa-microchip text-2xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
                                     CPU
                                 </h3>
-                                <p class="dark:text-[#4C566A] text-[#3B4252] font-semibold ml-0 sm:ml-10 mb-2"><span class="dark:text-[#ECEFF4] text-[#434C5E] font-bold" id="cpu-usage">50%</span> / 100%</p>
+                                <p class="dark:text-[#4C566A] text-[#3B4252] font-semibold ml-0 sm:ml-10 mb-2"><span class="dark:text-[#ECEFF4] text-[#434C5E] font-bold" id="cpu-usage"><?= $CPU ?> %</span> / 100%</p>
                             </div>
                         </div>
                         <canvas id="cpu-performance-chart"></canvas>
@@ -175,7 +218,7 @@
                                     <i class="fas fa-memory text-2xl dark:text-[#4C566A] text-[#3B4252] mr-1"></i>
                                     RAM
                                 </h3>
-                                <p class="dark:text-[#4C566A] text-[#3B4252] font-semibold ml-0 sm:ml-10 mb-2"><span class="dark:text-[#ECEFF4] text-[#434C5E] font-bold" id="ram-usage">50</span> / X Mio</p>
+                                <p class="dark:text-[#4C566A] text-[#3B4252] font-semibold ml-0 sm:ml-10 mb-2"><span class="dark:text-[#ECEFF4] text-[#434C5E] font-bold" id="ram-usage"><?= $RAM ?></span> / <?= $RAMLimit ?>GiB</p>
                             </div>
                         </div>
                         <canvas id="ram-performance-chart"></canvas>

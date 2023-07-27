@@ -1,5 +1,15 @@
 <?php
-    require_once 'ModelsPDO.php';
+
+    /**
+     * ResetPasswordController class is responsible for handling password reset functionality.
+     *
+     * @category Controller
+     * @package  MCServerManager
+     * @license  https://opensource.org/licenses/MIT MIT License
+     * @link     https://github.com/thorbeorn/mcservermanager
+     */
+
+    require_once Chemins::MODELS . 'ModelsPDO.php';
     require_once 'ErrorHandler.php';
     require_once 'lib/GestionEmail.php';
 
@@ -85,13 +95,12 @@
                 if ($update->rowCount() > 0) {
                     $this->errorHandler->LoginreDirectWithError('success');
                 } else {
-                    $this->errorHandler->redirectWithUpdateError('changed');
+                    $this->errorHandler->ResetredirectWithUpdateError('changed');
                 }
             } else {
-                $this->errorHandler->redirectWithUpdateError('match');
+                $this->errorHandler->ResetredirectWithUpdateError('match');
             }
         }
         
 
     }    
-?>

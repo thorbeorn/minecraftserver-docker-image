@@ -11,29 +11,38 @@
     class QueryMinecraft
     {
         private $query;
-
+        private $ip;
+        private $port;
+    
         public function __construct()
         {
             $this->query = new MinecraftQuery();
+            $this->ip = '172.20.0.5';
+            $this->port = '25565';
+    
+            try {
+                $this->query->Connect($this->ip, $this->port);
+            } catch (MinecraftQueryException $e) {
+                return $e->getMessage();
+            }
         }
-
+    
         public function getInfo()
         {
             try {
-                $this->query->Connect('172.20.0.5', 25565);
                 return $this->query->GetInfo();
             } catch (MinecraftQueryException $e) {
-                echo $e->getMessage();
+                return $e->getMessage();
             }
         }
-
+    
         public function getPlayers()
         {
             try {
-                $this->query->Connect('172.20.0.5', 25565);
                 return $this->query->GetPlayers();
             } catch (MinecraftQueryException $e) {
-                echo $e->getMessage();
+                return $e->getMessage();
             }
         }
     }
+    

@@ -1,0 +1,53 @@
+<?php
+
+    require_once Chemins::CONFIGS . 'MySQLConfig.php';
+
+    /**
+     * Class ModelsPDO
+     * 
+     * Cette classe permet de se connecter à une base de données MySQL en utilisant PDO.
+     * Elle contient des attributs utiles pour la connexion et la manipulation PDO de la BD.
+     */
+    
+    class ModelsPDO {
+
+        // Attributs utiles pour la connexion
+        protected static $serveur = MySqlConfig::SERVER;
+        protected static $base = MySqlConfig::DATABASE;
+        protected static $utilisateur = MySqlConfig::USERNAME;
+        protected static $passe = MySqlConfig::PASSWORD;
+        
+        // Attributs utiles pour la manipulation PDO de la BD
+        protected static $pdoCnxBase = null;
+        protected static $pdoStResults = null;
+        protected static $requete = "";
+        protected static $resultat = null;
+        public $pdo;
+        
+        /**
+         * Constructeur de la classe ModelsPDO.
+         * 
+         * Il permet de se connecter à la base de données MySQL en utilisant PDO.
+         * Si la connexion échoue, une exception PDOException est levée.
+         */
+
+        public function __construct() {
+            try {
+                $this->pdo = new PDO(
+                    "mysql:host=" . MySQLConfig::SERVER . ";dbname=" . MySQLConfig::DATABASE . ";charset=" . MySQLConfig::CHARSET,
+                    MySQLConfig::USERNAME,
+                    MySQLConfig::PASSWORD
+                );
+                // Définir le mode d'erreur PDO sur exception
+                $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch(PDOException $e) {
+                die("ERROR: Could not connect. " . $e->getMessage());
+            }
+        }
+
+        public function prepare($query) {
+            return $this->pdo->prepare($query);
+        }
+        
+        
+    }

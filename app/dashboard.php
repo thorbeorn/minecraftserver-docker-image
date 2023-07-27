@@ -1,4 +1,6 @@
 <?php 
+    session_start();
+    // On inclut le fichier de configuration
     require_once 'configs/requirements_dash.inc.php';
     require_once Chemins::CONTROLEURS . 'ErrorHandler.php';
     

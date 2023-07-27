@@ -12,10 +12,10 @@
         private $rconPassword;
         private $query;
 
-        public function __construct($address, $port, $rconPassword) {
-            $this->serverAddress = $address;
-            $this->serverPort = $port;
-            $this->rconPassword = $rconPassword;
+        public function __construct() {
+            $this->serverAddress = '';
+            $this->serverPort = '';
+            $this->rconPassword = '';
             $this->query = new SourceQuery();
         }
 

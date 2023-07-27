@@ -1,33 +1,43 @@
 <?php
 
-require_once 'ModelsPDO.php';
-require_once 'ErrorHandler.php'; 
+    /**
+     * This class represents the LoginController which is responsible for handling user login requests.
+     * It extends the ModelsPDO class and uses the ErrorHandler class to handle errors.
+    */
 
-class LoginController extends ModelsPDO {
-    private $errorHandler;
+    /**
+     * This class represents the LoginController which is responsible for handling user login requests.
+     * It extends the ModelsPDO class and uses the ErrorHandler class to handle errors.
+    */
 
-    public function __construct() {
-        parent::__construct(); // Pour appeler le constructeur de la classe parent (ModelsPDO) qui initialise $pdo
-        $this->errorHandler = new ErrorHandler();
-    }
+    require_once Chemins::MODELS . 'ModelsPDO.php';
+    require_once 'ErrorHandler.php'; 
 
-    public function loginUser($pseudo, $password) {
-        $stmt = $this->pdo->prepare('SELECT pseudo, password FROM _user WHERE pseudo = :pseudo');
-        $stmt->bindParam(':pseudo', $pseudo);
-        $stmt->execute();
-        $data = $stmt->fetch();
-        $row = $stmt->rowCount();
+    class LoginController extends ModelsPDO {
+        private $errorHandler;
 
-        if ($row > 0) {
-            if (password_verify($password, $data['password'])) {
-                $_SESSION['user'] = $data['pseudo'];
-                header('Location: dashboard.php');
-                exit();
+        public function __construct() {
+            parent::__construct(); // Pour appeler le constructeur de la classe parent (ModelsPDO) qui initialise $pdo
+            $this->errorHandler = new ErrorHandler();
+        }
+
+        public function loginUser($pseudo, $password) {
+            $stmt = $this->pdo->prepare('SELECT pseudo, password FROM _user WHERE pseudo = :pseudo');
+            $stmt->bindParam(':pseudo', $pseudo);
+            $stmt->execute();
+            $data = $stmt->fetch();
+            $row = $stmt->rowCount();
+
+            if ($row > 0) {
+                if (password_verify($password, $data['password'])) {
+                    $_SESSION['user'] = $data['pseudo'];
+                    header('Location: dashboard.php');
+                    exit();
+                } else {
+                    $this->errorHandler->LoginreDirectWithError('password');
+                }
             } else {
-                $this->errorHandler->LoginreDirectWithError('password');
+                $this->errorHandler->LoginreDirectWithError('already');
             }
-        } else {
-            $this->errorHandler->LoginreDirectWithError('already');
         }
     }
-}

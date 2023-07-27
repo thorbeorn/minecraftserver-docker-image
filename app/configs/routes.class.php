@@ -18,6 +18,7 @@ class Chemins {
    
    // * ROUTE des fichiers images * //
    const IMAGES = "public/assets/img/";
+   const IMAGES_AVATARS = "public/avatar/player/";
    
    // * ROUTE du dossier CONFIGURATION * //
    const CONFIGS = "configs/";
