@@ -140,7 +140,7 @@ by default, we use :
 - 25565 for query and server ports
 - 25575 for the RCON port
 
-[!IMPORTANT]
+> [!IMPORTANT]
 > If the ports are changed in the server.properties file, they will have to be changed in the mapping from internal to external ports.
 > example: 
 > - server port is 25566
