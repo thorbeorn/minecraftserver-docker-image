@@ -32,29 +32,30 @@ You need to have [docker desktop](https://www.docker.com/products/docker-desktop
 there are two ways to pull the minecraft server image :
 - without tag, it will automatically download the latest vanilla version of minecraft
 ```bash
-docker pull thorbeorn/minecraftserver
+docker pull thorbeorndev/minecraftserver
 ```
 - with [composed tag](#composed-tag), the [composed tag](#composed-tag) is separated into two parts, the distro and the minecraft version (list of tags in next section)
 ```bash
-docker pull thorbeorn/minecraftserver:spigot-1.12.2
+docker pull thorbeorndev/minecraftserver:spigot-1.12.2
 ```
 
 ### Third step
 To start a container with our image, there's one main factor to take into account: [environment variables](#environment-variables) (list of tags in next section) :
 - without [environment variables](#environment-variables), booting without [environment variables](#environment-variables) will keep the default boot values (2g RAM and QUERY/RCON disabled).
 ```bash
-docker run --name minecraft -it thorbeorn/minecraftserver
-docker run --name minecraft -it thorbeorn/minecraftserver:spigot-1.12.2
+docker run --name minecraft -it -p 25565:25565 -p 25575:25575 thorbeorndev/minecraftserver
+docker run --name minecraft -it -p 25565:25565 -p 25575:25575 thorbeorndev/minecraftserver:spigot-1.12.2
 ```
 
 - with [environment variables](#environment-variables), starting with [environment variables](#environment-variables) will change the server parameters to match the expected value.
 **example** : server with rcon and query so 2G RAM for startup and 2G for execution
 ```bash
 docker run --name minecraft -it \
+-p 25565:25565 -p 25575:25575 \
 -e xms=2G -e xmx=4G \
 -e enablercon=true -e rconpassword="test" \
 -e enablequery=true \
-thorbeorn/minecraftserver:vanilla-1.7.10
+thorbeorndev/minecraftserver:vanilla-1.7.10
 ```
 
 ### Fourth step (optional)
@@ -80,7 +81,7 @@ pour cette derniere partie optionnel, nous allons monter un volume entre le serv
 the minecraft server image is used to create minecraft server containers. To choose the server version we use a compound tag, i.e. we can choose the server type such as vanilla, spigot etc. and choose the game version such as 1.2.5, 1.7.10 etc.
 
 to pull a specific image we use the following image with the compound tag :
-**thorbeorn/minecraftserver:xx-yy**
+**thorbeorndev/minecraftserver:xx-yy**
 > xx -> corresponds to server distribution (vanilla, spigot etc).
 >
 > yy -> corresponds to the server version (1.2.5, 1.7.10, etc.).
@@ -101,7 +102,7 @@ Here's a table showing the key/value of each environment variable and their desc
 | enablequery                 | true/false           | false                | The Query protocol is a mechanism for querying a Minecraft server for information on its status, connected players, game statistics and more. It works by using specific UDP requests sent to the Minecraft server. |
 | enablercon                  | true/false           | true/false           | RCON is a communication protocol for remote management and control of a Minecraft server. It offers a secure way of sending commands to the server, reading console output and even interacting with certain aspects of the server without being directly connected to it. |
 | rconpassword                | true/false           | true/false           | The RCON protocol is password-protected, ensuring that only authorized users can interact with the server console. |
-| enableServerPropertiesFile  | true/false           | true/false           | Bypasses other environment variables and lets the server be managed by the server.properties file. |
+| enableServerPropertiesFile  | true/false           | true/false           | Bypasses other environment variables except RAM and lets the server be managed by the server.properties file. |
 | xms                         | xG/xM (x is integer) | xG/xM (x is integer) | Maximum RAM used at startup
 | xmx                         | xG/xM (x is integer) | xG/xM (x is integer) | Maximum RAM used during execution
 
@@ -109,31 +110,50 @@ Here's a table showing the key/value of each environment variable and their desc
 - container with only rcon and 2G RAM for startup and 4G for execution
 ```bash
 docker run --name minecraft -it \
+-p 25565:25565 -p 25575:25575 \
 -e xms=2G -e xmx=4G \
 -e enablercon=true -e rconpassword="test" \
-thorbeorn/minecraftserver:xx-yy
+thorbeorndev/minecraftserver:xx-yy
 ```
 
 - container with only query
 ```bash
 docker run --name minecraft -it \
+-p 25565:25565 -p 25575:25575 \
 -e enablequery=true \
-thorbeorn/minecraftserver:xx-yy
+thorbeorndev/minecraftserver:xx-yy
 ```
 
 - container with the server.properties file manage the server configuration.
 ```bash
 docker run --name minecraft -it \
+-p 25565:25565 -p 25575:25575 \
 -e enableServerPropertiesFile=true \
 -v /absolute/path/to/folder:/minecraft \
-thorbeorn/minecraftserver:xx-yy
+thorbeorndev/minecraftserver:xx-yy
 ```
+
+# Port
+we can change the minecraft server's listening ports using the -p option, which allows us to remap the container's internal ports to accessible external ports. 
+
+by default, we use :
+- 25565 for query and server ports
+- 25575 for the RCON port
+
+[!IMPORTANT]
+> If the ports are changed in the server.properties file, they will have to be changed in the mapping from internal to external ports.
+> example: 
+> - server port is 25566
+> QUERY port is 25567
+> RCON port is 25568
+>
+> then we have : -p 25566:25566 -p 25567:25567 -p 25568:25568
 
 # Author & Developer
 ### Author
-- [@thorbeorn](https://github.com/thorbeorn)
+- [@thorbeorndev](https://github.com/thorbeorndev)
 ### Developer
-- [@thorbeorn](https://github.com/thorbeorn)
+- [@thorbeorndev](https://github.com/thorbeorndev)
 
 # License
 [MIT](https://choosealicense.com/licenses/mit/)
