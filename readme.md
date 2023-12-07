@@ -92,14 +92,39 @@ to pull a specific image we use the following image with the compound tag :
 - 1.2.5
 
 # Environment variables
-les variable d'environnement sont utilisé pour gerer les fonctions principales du server comme sa RAM ou les protocoles activé.
+Environment variables are used to manage the server's main functions, such as RAM or enabled protocols.
 
-Voici un tableau correspondant au clé/valeur de chaque variable d'environnement ainsi que leur description
- 
--e enablequery=[true/false]
--e enablercon=[true/false]
--e rconpassword="[password]"
--e enableServerPropertiesFile=[true/false]
-xms
-xmx
-etc
+Here's a table showing the key/value of each environment variable and their description
+
+| Environment variable        | Possible value       | Default value        | Description |
+|:--------------------------- |:-------------------- |:-------------------- |:----------- |
+| enablequery                 | true/false           | false                | The Query protocol is a mechanism for querying a Minecraft server for information on its status, connected players, game statistics and more. It works by using specific UDP requests sent to the Minecraft server. |
+| enablercon                  | true/false           | true/false           | RCON is a communication protocol for remote management and control of a Minecraft server. It offers a secure way of sending commands to the server, reading console output and even interacting with certain aspects of the server without being directly connected to it. |
+| rconpassword                | true/false           | true/false           | The RCON protocol is password-protected, ensuring that only authorized users can interact with the server console. |
+| enableServerPropertiesFile  | true/false           | true/false           | Bypasses other environment variables and lets the server be managed by the server.properties file. |
+| xms                         | xG/xM (x is integer) | xG/xM (x is integer) | Maximum RAM used at startup
+| xmx                         | xG/xM (x is integer) | xG/xM (x is integer) | Maximum RAM used during execution
+
+### Example of a container with Environment variables
+- container with only rcon and 2G RAM for startup and 4G for execution
+```bash
+docker run --name minecraft -it \
+-e xms=2G -e xmx=4G \
+-e enablercon=true -e rconpassword="test" \
+thorbeorn/minecraftserver:xx-yy
+```
+
+- container with only query
+```bash
+docker run --name minecraft -it \
+-e enablequery=true \
+thorbeorn/minecraftserver:xx-yy
+```
+
+- container with the server.properties file manage the server configuration.
+```bash
+docker run --name minecraft -it \
+-e enableServerPropertiesFile=true \
+-v /absolute/path/to/folder:/minecraft \
+thorbeorn/minecraftserver:xx-yy
+```
