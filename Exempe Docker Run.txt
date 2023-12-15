@@ -1,0 +1,66 @@
+docker run --name minecraft -it \
+-p 25565:25565 -p 25575:25575 \
+thorbeorndev/minecraftserver:vanilla-1.2.5
+
+-----------------------------------------
+
+docker run --name minecraft -it \
+-p 25565:25565 -p 25575:25575 \
+-e xms=2G -e xmx=4G \
+-e enablercon=true -e rconpassword="test" \
+thorbeorndev/minecraftserver:vanilla-1.2.5
+
+-----------------------------------------
+
+docker run --name minecraft -it \
+-p 25565:25565 -p 25575:25575 \
+-e xms=1G -e xmx=1G \
+-e enablequery=true \
+thorbeorndev/minecraftserver:vanilla-1.2.5
+
+-----------------------------------------
+
+docker run --name minecraft -it \
+-p 25565:25565 -p 25575:25575 \
+-e xms=2G -e xmx=2G \
+-e enablercon=true -e rconpassword="test" \
+-e enablequery=true \
+thorbeorndev/minecraftserver:vanilla-1.2.5
+
+-----------------------------------------
+
+docker run --name minecraft -it \
+-p 25565:25565 -p 25575:25575 \
+-e xms=1G -e xmx=1G \
+-e enablercon=true -e rconpassword="test" \
+-e enablequery=true \
+-v /Users/dylanllodra/Desktop/minecraft-app-images/minecraft:/minecraft \
+thorbeorndev/minecraftserver:vanilla-1.2.5
+
+-----------------------------------------
+
+docker run --name minecraft -it \
+-p 25565:25565 -p 25575:25575 \
+-e xms=1024M -e xmx=2G \
+-e enablercon=true -e rconpassword="test" \
+-e enablequery=true \
+-e enableServerPropertiesFile=true \
+-v /Users/dylanllodra/Desktop/minecraft-app-images/minecraft:/minecraft \
+thorbeorndev/minecraftserver:vanilla-1.2.5
+
+-----------------------------------------
+
+docker run -it \
+-p 25565:25565 -p 25575:25575 \
+-e xms=4G -e xmx=4G \
+-e enableServerPropertiesFile=true \
+-v /Users/dylanllodra/Desktop/minecraft-app-images/minecraft:/minecraft \
+thorbeorndev/minecraftserver:vanilla-1.3.1
+
+-----------------------------------------
+
+docker run -it \
+-p 25565:25565 -p 25575:25575 \
+-e xms=4G -e xmx=4G \
+-e enableServerPropertiesFile=true \
+thorbeorndev/minecraftserver:vanilla-1.3.1

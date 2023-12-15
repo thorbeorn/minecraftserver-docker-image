@@ -1,0 +1,36 @@
+FROM ubuntu:jammy
+
+ENV xms="1G"
+ENV xmx="2G"
+ENV enablequery="false"
+ENV enablercon="false"
+ENV enableServerPropertiesFile="false"
+ENV rconpassword=""
+
+ENV SDKMAN_DIR=/root/.sdkman
+
+RUN apt update -y
+RUN apt install -y screen curl unzip zip
+
+RUN curl -s "https://get.sdkman.io" | bash && \
+    echo "sdkman_auto_answer=true" > $SDKMAN_DIR/etc/config && \
+    echo "sdkman_auto_selfupdate=false" >> $SDKMAN_DIR/etc/config
+
+RUN bash -c "source $SDKMAN_DIR/bin/sdkman-init.sh && sdk version && sdk install java 8.0.282-trava"
+
+RUN mkdir /minecraft
+WORKDIR /minecraft
+
+COPY forge_folder/forge-1.16.1-32.0.108-installer/libraries /libraries
+COPY forge_folder/forge-1.16.1-32.0.108-installer/forge-1.16.1-32.0.108.jar /forgeserver.jar
+COPY forge_folder/forge-1.16.1-32.0.108-installer/minecraft_server.1.16.1.jar /minecraft_server.1.16.1.jar
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod a+x /entrypoint.sh
+
+ENV JAVA_HOME="$SDKMAN_DIR/candidates/java/current"
+ENV PATH="$JAVA_HOME/bin:$PATH"
+
+EXPOSE 25565 25575
+
+ENTRYPOINT ["/entrypoint.sh"]

@@ -1,0 +1,25 @@
+FROM ubuntu:trusty
+
+ENV xms="1G"
+ENV xmx="2G"
+ENV enablequery="false"
+ENV enablercon="false"
+ENV enableServerPropertiesFile="false"
+ENV rconpassword=""
+
+RUN apt update -y
+RUN apt install -y screen openjdk-7-jdk-headless
+
+RUN mkdir /minecraft
+WORKDIR /minecraft
+
+COPY forge_folder/forge-1.5.2-7.8.1.738-installer/libraries /libraries
+COPY forge_folder/forge-1.5.2-7.8.1.738-installer/minecraftforge-universal-1.5.2-7.8.1.738.jar /forgeserver.jar
+COPY forge_folder/forge-1.5.2-7.8.1.738-installer/minecraft_server.1.5.2.jar /minecraft_server.1.5.2.jar
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod a+x /entrypoint.sh
+
+EXPOSE 25565 25575
+
+ENTRYPOINT ["/entrypoint.sh"]

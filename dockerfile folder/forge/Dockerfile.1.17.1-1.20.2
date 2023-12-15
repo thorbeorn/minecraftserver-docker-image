@@ -1,0 +1,27 @@
+FROM debian:bookworm-slim
+
+ENV xms="1G"
+ENV xmx="2G"
+ENV enablequery="false"
+ENV enablercon="false"
+ENV enableServerPropertiesFile="false"
+ENV rconpassword=""
+
+RUN apt update -y
+RUN apt install -y screen openjdk-17-jdk-headless
+
+RUN mkdir /minecraft
+WORKDIR /minecraft
+
+COPY forge_folder/forge-1.20.1-47.2.0-installer/libraries /libraries
+COPY forge_folder/forge-1.20.1-47.2.0-installer/run.sh /run.sh
+
+RUN sed -i 's/@user_jvm_args.txt/-Xms$xms -Xmx$xmx/' /run.sh
+RUN chmod a+x /run.sh
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod a+x /entrypoint.sh
+
+EXPOSE 25565 25575
+
+ENTRYPOINT ["/entrypoint.sh"]

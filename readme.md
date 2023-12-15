@@ -1,6 +1,11 @@
 # MinecraftServer Docker Image
 Easily deploy and manage Minecraft servers with unrivalled flexibility and speed, thanks to our Docker images optimized for maximum elasticity.
 
+# Link to elements
+[Github](https://github.com/thorbeorn/minecraftserver-docker-image)
+
+[Docker hub](https://hub.docker.com/r/thorbeorndev/minecraftserver)
+
 # Why ?
 Most Minecraft server images available on Docker are often frozen in time, rarely updated and limited in their flexibility to meet advanced user needs.
 
@@ -16,7 +21,7 @@ Minecraft Server isn't based on an existing docker image, but was created from 2
 - a short and precise dockerfile
 - an entrypoint containing all functions to be executed when the image is launched
 
-Minecraft server is initially based on the [bookworm-slim debian](https://hub.docker.com/_/debian) distribution, and then uses two main programs to manage the minecraft server:
+Minecraft server is initially based on the [jammy ubuntu](https://hub.docker.com/_/ubuntu) and [bookworm-slim debian](https://hub.docker.com/_/debian) distribution, and then uses two main programs to manage the minecraft server:
 - [Screen](https://doc.ubuntu-fr.org/screen) to manage the terminal server integrated into the docker terminal
 - [openjdk-17-jdk-headless](https://packages.debian.org/bookworm/openjdk-17-jdk-headless) for launching and managing the mineraft server.
 
@@ -86,11 +91,15 @@ to pull a specific image we use the following image with the compound tag :
 >
 > yy -> corresponds to the server version (1.2.5, 1.7.10, etc.).
 
-### Available distribution
-- vanilla
-
-### Available version
-- 1.2.5
+### Available distribution/version
+| Available distribution      | Compatible version   |
+|:--------------------------- |:-------------------- |
+| vanilla                     | - 1.2.5<br>- 1.3.x<br>- 1.4.x<br>- 1.5.x<br>- 1.6.x<br>- 1.7.x<br>- 1.8.x<br>- 1.9.x<br>- 1.10.x<br>- 1.11.x<br>- 1.12.x<br>- 1.13.x<br>- 1.14.x<br>- 1.15.x<br>- 1.16.x<br>- 1.17.x<br>- 1.18.x<br>- 1.19.x<br>- 1.20-1.20.3 |
+| spigot                      | - 1.4.6-1.4.7<br>- 1.5.x<br>- 1.6.2<br>- 1.7.2<br>- 1.7.5<br>- 1.7.8-1.7.10<br>- 1.8<br>- 1.8.3-1.8.8<br>- 1.9<br>- 1.9.2<br>- 1.9.4<br>- 1.10<br>- 1.10.2<br>- 1.11.x<br>- 1.12.x<br>- 1.13.x<br>- 1.14.x<br>- 1.15.x<br>- 1.16.1-1.16.5<br>- 1.17.1<br>- 1.18.2<br>- 1.19.x<br>- 1.20-1.20.3 |
+| craftbukkit                 | - 1.0.0<br>- 1.1<br>- 1.2.2-1.2.5<br>- 1.3.x<br>- 1.4.2<br>- 1.4.5-1.4.7<br>- 1.5.x<br>- 1.6.x<br>- 1.7.2<br>- 1.7.5<br>- 1.7.8-1.7.10<br>- 1.8<br>- 1.8.3-1.8.8<br>- 1.9<br>- 1.9.2<br>- 1.9.4<br>- 1.10<br>- 1.10.2<br>- 1.11.x<br>- 1.12.x<br>- 1.13.x<br>- 1.14.x<br>- 1.15.x<br>- 1.16.1-1.16.5<br>- 1.20.1-1.20.2 |
+| paper                       | - 1.8.8<br>- 1.9.4<br>- 1.10.2<br>- 1.11.2<br>- 1.12.x<br>- 1.13.x<br>- 1.14.x<br>- 1.15.x<br>- 1.16.1-1.16.5<br>- 1.17.x<br>- 1.18.x<br>- 1.19.x<br>- 1.20-1.20.2<br>- 1.20.4 |
+| fabric                      | - 1.14.x<br>- 1.15.x<br>- 1.16.x<br>- 1.17.x<br>- 1.18.x<br>- 1.19.x<br>- 1.20-1.20.4 |
+| forge                       | - 1.6.1-1.6.2<br>- 1.7.2<br>- 1.7.10<br>- 1.8<br>- 1.8.8-1.8.9<br>- 1.9<br>- 1.9.4<br>- 1.10<br>- 1.10.2<br>- 1.11<br>- 1.11.2<br>- 1.12.x<br>- 1.13.2<br>- 1.14.2-1.14.4<br>- 1.15.x<br>- 1.16.1-1.16.5<br>- 1.17.1<br>- 1.18.x<br>- 1.19.x<br>- 1.20-1.20.2 |
 
 # Environment variables
 Environment variables are used to manage the server's main functions, such as RAM or enabled protocols.

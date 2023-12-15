@@ -1,0 +1,23 @@
+FROM debian:bookworm-slim
+
+ENV xms="1G"
+ENV xmx="2G"
+ENV enablequery="false"
+ENV enablercon="false"
+ENV enableServerPropertiesFile="false"
+ENV rconpassword=""
+
+RUN apt update -y
+RUN apt install -y screen openjdk-17-jdk-headless
+
+RUN mkdir /minecraft
+WORKDIR /minecraft
+
+ADD https://launcher.mojang.com/mc/game/1.7.10/server/952438ac4e01b4d115c5fc38f891710c4941df29/server.jar /server.jar
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod a+x /entrypoint.sh
+
+EXPOSE 25565 25575
+
+ENTRYPOINT ["/entrypoint.sh"]

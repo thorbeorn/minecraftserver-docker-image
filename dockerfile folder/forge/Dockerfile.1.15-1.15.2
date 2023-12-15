@@ -1,0 +1,25 @@
+FROM ubuntu:jammy
+
+ENV xms="1G"
+ENV xmx="2G"
+ENV enablequery="false"
+ENV enablercon="false"
+ENV enableServerPropertiesFile="false"
+ENV rconpassword=""
+
+RUN apt update -y
+RUN apt install -y screen openjdk-11-jdk-headless
+
+RUN mkdir /minecraft
+WORKDIR /minecraft
+
+COPY forge_folder/forge-1.14.4-28.2.26-installer/libraries /libraries
+COPY forge_folder/forge-1.14.4-28.2.26-installer/forge-1.14.4-28.2.26.jar /forgeserver.jar
+COPY forge_folder/forge-1.14.4-28.2.26-installer/minecraft_server.1.14.4.jar /minecraft_server.1.14.4.jar
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod a+x /entrypoint.sh
+
+EXPOSE 25565 25575
+
+ENTRYPOINT ["/entrypoint.sh"]
